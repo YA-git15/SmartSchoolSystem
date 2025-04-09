@@ -20,6 +20,9 @@ public class Event {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:SS")
 	private LocalDateTime eventEndDatetime;
+	
+	private String eventPlace;
+	
 	@NotBlank
 	private String eventTarget;
 

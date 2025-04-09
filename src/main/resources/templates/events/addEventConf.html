@@ -10,14 +10,25 @@
 	<h1>[[${title}]]</h1>
 
 	<p>行事名: [[${event.eventTitle}]]</p>
-	<p>実施日: [[${#temporals.format(event.eventDate,'MM月dd日')}]]</p>
+	<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
+		～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
+	</p>
+	<p>場所： [[${event.eventPlace}]]</p>
 	<p>対象: [[${event.eventTarget}]]</p>
-	<p>内容: [[${event.eventDetail}]]</p>
+	<p>内容:
+	<div class="form-row-a">
+		<label for="eventDetail">内容</label>
+		<!-- Quillエディタの内容をそのまま表示 -->
+		<div id="eventDetailPreview" th:utext="${event.eventDetail}"></div>
+	</div>
+	</p>
 
 	<!-- 確認画面から修正画面に戻るためのフォーム -->
 	<form action="/events/addEvent" method="post" th:object="${event}">
 		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventDate" th:value="*{eventDate}">
+		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
 		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
 		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
 		<button type="submit">入力内容修正</button>
@@ -26,7 +37,9 @@
 	<!-- 確認画面からDBに送信するためのフォーム -->
 	<form action="/events/addEventDone" method="post" th:object="${event}">
 		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventDate" th:value="*{eventDate}">
+		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
 		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
 		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
 		<button type="submit">新規行事追加</button>

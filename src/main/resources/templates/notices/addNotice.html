@@ -26,16 +26,14 @@
 			<div class="col-12 col-md-6 nav-link">
 				<div class="row navs">
 					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
+					<div class="col-3"><a th:href="@{/notices}">行事予定</a></div>
 					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
 					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
 				</div>
 			</div>
-
 		</div>
-
-
 	</header>
+
 	<main>
 		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
 			<div class="card-header">新規お知らせ作成</div>
@@ -44,8 +42,24 @@
 				<p class="card-text">以下のフォームに必要事項を入力してください</p>
 			</div>
 		</div>
-		<h1>新規お知らせ作成</h1>
-		
+
+		<form th:action="@{/notices/addNotcieConf}" th:object="${notice}" method="post">
+
+			<p>行事名：<input type="text" th:field="*{noticeTitle}"></p>
+			<p th:errors="*{noticeTitle}"></p>
+
+			<p>実施日：<input type="date" th:field="*{noticeDate}"></p>
+			<p th:errors="*{noticeDate}"></p>
+
+			<p>対象：<input type="text" th:field="*{noticeTarget}"></p>
+			<p th:errors="*{noticeTarget}"></p>
+
+			<p>内容：<input type="text" th:field="*{noticeDetail}"></p>
+			<p><input type="submit" value="入力内容確認"></p>
+		</form>
+
+
+
 	</main>
 
 

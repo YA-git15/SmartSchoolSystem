@@ -1,33 +1,97 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>問い合わせ一覧</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<title>問い合わせ一覧</title>
 </head>
+
 <body>
-	<h1>問い合わせ一覧</h1>
-	
-	<p><a th:href="@{/inqueries/addInquery}">問い合わせの追加</a></p>
-	
-	<table border="1">
-		<tr>
-			<th>問い合わせ内容</th>
-			<th>問い合わせ名</th>
-			<th>対象</th>
-			<th>操作</th>
-		</tr>
-		<tr th:each="inquery : ${inqueries}">
-			<td>[[${inquery.inqueryDetail}]]</td>
-			<td>[[${inquery.answer}]]</td>
-			<td>[[${inquery.status}]]</td>
-			<td>[[${#temporals.format(inquery.inqueryDate,'MM月dd日')}]]</td>
-			<td>[[${#temporals.format(inquery.answerDate,'MM月dd日')}]]</td>
-			<td><a th:href="@{/inqueries/detailInquery/{id}(id=${inquery.inqueryId})}">詳細</a></td>
-			<td><a th:href="@{/inqueries/editInquery/{id}(id=${inquery.inqueryId})}">編集</a></td>
-			<td><a th:href="@{/inqueries/deleteInqueryConf/{id}(id=${inquery.inqueryId})}">削除</a></td>
-		</tr>
+	<header class="container-fluid header">
+		<div class="row shcool-name-and-nav">
+			<div class="col-12 col-md-6 school-name">
+				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
+					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
+						style="width: 20%; margin-right: 10px;">
+					<h2 class="mb-0">横浜市立新横浜小学校</h2>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-6 nav-link">
+				<div class="row navs">
+					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
+					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
+					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
+					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="card border-light text-dark">
+			<img src="images/header.jpg" class="card-img" alt="背景画像">
+			<div class="card-img-overlay d-flex">
+				<div class="my-auto">
+					<h1 class="page-title">Inquery</h1>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="main-contents">
+		<p><a th:href="@{/inqueries/addInquery}">問い合わせの追加</a></p>
 		
-	</table>
+		
+		<table class="table table-hover listnotice-table">
+			<thead>
+				<tr>
+					<th class="listnotice-table-date">問い合わせ名</th>
+					<th class="listnotice-table-date">詳細</th>
+					<th class="listnotice-tabel-title">回答</th>
+					<th colspan="3" class="listnotice-tabel-operation">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="inquery : ${inqueries}">
+					<td></td>
+					<td>
+						<span>[[${#temporals.format(notice.NoticeDate,'MM月dd日')}]]</span><br>
+						<span>[[${#temporals.format(notice.NoticeDate,'HH:mm')}]]</span>
+					</td>
+					<td>[[${notice.noticeTitle}]]</td>
+					<td class="notice-detail">[[${notice.noticeDetail}]]</td>
+					<td><a class="btn btn-primary" th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">詳細</a>
+					</td>
+					<td><a class="btn btn-warning" th:href="@{/notices/editNotice/{id}(id=${notice.noticeId})}">編集</a>
+					</td>
+					<td><a class="btn btn-danger"
+							th:href="@{/notices/deleteNoticeConf/{id}(id=${notice.noticeId})}">削除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+				<td>[[${inquery.inqueryDetail}]]</td>
+				<td>[[${inquery.answer}]]</td>
+				<td>[[${inquery.status}]]</td>
+				<td>[[${#temporals.format(inquery.inqueryDate,'MM月dd日')}]]</td>
+				<td>[[${#temporals.format(inquery.answerDate,'MM月dd日')}]]</td>
+				<td><a th:href="@{/inqueries/detailInquery/{id}(id=${inquery.inqueryId})}">詳細</a></td>
+				<td><a th:href="@{/inqueries/editInquery/{id}(id=${inquery.inqueryId})}">編集</a></td>
+				<td><a th:href="@{/inqueries/deleteInqueryConf/{id}(id=${inquery.inqueryId})}">削除</a></td>
+			</tr>
+
+		</table>
+	</main>
 
 </body>
+
 </html>

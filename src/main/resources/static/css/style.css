@@ -122,6 +122,7 @@ main.container-fluid {
 main.main-contents {
 	padding-top: 20px;
 	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .listnotice-table-date {
@@ -149,18 +150,63 @@ main.main-contents {
 }
 
 /* Events */
-#calendar {
-	width: 60% !important;	
-	height: 100% !important;
-	margin-left: 0 !important;
-	margin-right: 0 !important;
+.calendar-events-title {
+	font-size: 2em;
 }
 
-.fc {
-	margin-left: 20px !important;
-	margin-right: 0 !important;
+#calendar {
+	width: 90% !important;
+	height: 100% !important;
+	margin-top: 20px !important;
+	margin-left: 5px !important;
+	margin-right: 5pz !important;
+}
+
+.list-events-title {
+	font-size: 2em;
 }
 
 .list-events {
-    padding-left: 60px; 
+	margin-top: 20px;
+	padding-left: 20px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.form-row label {
+	width: 60px;
+	text-align-last: justify;
+	padding-right: 5px;
+}
+
+.form-row input {
+	width: 200px;
+	margin-right: 10px;
+}
+
+.form-row span {
+	margin: 0 10px;
+}
+
+.form-row-a label {
+	width: 60px;
+	text-align-last: justify;
+	margin-bottom: 2px;
+}
+
+.error-message {
+	color: red;
+}
+
+.btn {
+	margin-top: 10px;
 }

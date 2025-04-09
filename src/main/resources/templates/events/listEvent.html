@@ -13,14 +13,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/main.min.css" rel="stylesheet">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
-
-	<style>
-		#calendar {
-			width: 70%;
-			height: 700px;
-			margin: 0 auto;
-		}
-	</style>
 </head>
 
 <body>
@@ -57,41 +49,52 @@
 		</div>
 	</header>
 
-
-	<div class="conatainer-fluid">
-		<div class="row">
-			<div class="col-8 calendar-events" id='calendar'></div>
-			<div class="col-4 list-events">
-				<table class="table table-hover listnotice-table">
-					<thead>
-						<tr>
-							<th class="event-date">Date</th>
-							<th class="event-title">行事名</th>
-							<th colspan="3" class="events-operation">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="event : ${events}">
-							<td>
-								<span>[[${#temporals.format(event.eventStartDatetime,'MM月dd日')}]]</span>
-							</td>
-							<td>[[${event.eventTitle}]]</td>
-							<td><a class="btn btn-primary"
-									th:href="@{/events/detailEvent/{id}(id=${event.eventId})}">詳細</a>
-							</td>
-							<td><a class="btn btn-warning"
-									th:href="@{/events/editEvent/{id}(id=${event.eventId})}">編集</a>
-							</td>
-							<td><a class="btn btn-danger"
-									th:href="@{/events/deleteEventConf/{id}(id=${event.eventId})}">削除</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+	<main class="main-contents">
+		<a th:href="@{/events/addEvent}">新規追加</a>
+		<div class="conatainer-fluid">
+			<div class="row">
+				<div class="col-8">
+					<div class="row">
+						<div class="col-12 calendar-events-title">月間予定</div>
+					</div>
+					<div class="row">
+						<div class="col-12 calendar-events" id='calendar'></div>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="row">
+						<div class="col-12 list-events-title">年間予定</div>
+						<div class="col-12 list-events">
+							<table class="table table-hover listnotice-table">
+								<thead>
+									<tr>
+										<div class="row event-list">
+											<div class="col-4 event-date">Date</div>
+											<div class="col-8 event-title">行事名</div>
+										</div>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="event : ${events}">
+										<td>
+											<a th:href="@{/events/detailEvent/{id}(id=${event.eventId})}"
+												class="table-link">
+												<div class="row event-list">
+													<div class="col-4">
+														[[${#temporals.format(event.eventStartDatetime,'MM月dd日')}]]
+													</div>
+													<div class="col-8">[[${event.eventTitle}]]</div>
+												</div>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
-			
-		</div>
-	</div>
+	</main>
 
 
 	<script>
@@ -100,7 +103,7 @@
 
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 
-				
+
 				displayEventTime: false,
 				timeZone: 'Asia/Tokyo',  // 日本時間に設定
 				locale: 'ja',

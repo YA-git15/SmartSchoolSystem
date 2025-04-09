@@ -21,5 +21,9 @@ public class Inquery {
 	private LocalDate inqueryDate;
 	
 	private LocalDate answerDate;
+	
+	private Integer notriceId;
+	
+	private Integer eventId;
 
 }

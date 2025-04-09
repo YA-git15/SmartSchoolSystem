@@ -13,15 +13,16 @@
 	</select>
 	
 	<insert id="insert" parameterType="Event">
-		INSERT INTO events(event_title, event_start_datetime, event_end_datetime, event_target, event_detail)
-		VALUES (#{eventTitle}, #{eventStartDateTime}, #{eventEndtDateTime} #{eventTarget}, #{eventDetail})	
+		INSERT INTO events(event_title, event_start_datetime, event_end_datetime, event_place, event_target, event_detail)
+		VALUES (#{eventTitle}, #{eventStartDatetime}, #{eventEndDatetime}, #{eventPlace}, #{eventTarget}, #{eventDetail})	
 	</insert>
 	
 	<update id="update" parameterType="Event">
 		UPDATE events
 		SET event_title = #{eventTitle},
-			event_start_datetime = #{eventStartDateTime},
-			event_end_datetime = #{eventEndtDateTime}
+			event_start_datetime = #{eventStartDatetime},
+			event_end_datetime = #{eventEndDatetime}
+			event_place = #{eventPlace},
 			event_target = #{eventTarget},
 			event_detail = #{eventDetail}
 		WHERE event_id = #{eventId}	
