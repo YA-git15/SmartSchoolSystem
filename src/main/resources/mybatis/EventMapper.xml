@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sss.app.mapper.EventMapper">
+
+	<select id="selectEvents" resultType="Event">
+		SELECT * FROM events
+		ORDER BY event_start_datetime ASC
+	</select>
+	
+	<select id="selectEventById">
+		SELECT * FROM events WHERE event_id = #{eventId}
+	</select>
+	
+	<insert id="insert" parameterType="Event">
+		INSERT INTO events(event_title, event_start_datetime, event_end_datetime, event_target, event_detail)
+		VALUES (#{eventTitle}, #{eventStartDateTime}, #{eventEndtDateTime} #{eventTarget}, #{eventDetail})	
+	</insert>
+	
+	<update id="update" parameterType="Event">
+		UPDATE events
+		SET event_title = #{eventTitle},
+			event_start_datetime = #{eventStartDateTime},
+			event_end_datetime = #{eventEndtDateTime}
+			event_target = #{eventTarget},
+			event_detail = #{eventDetail}
+		WHERE event_id = #{eventId}	
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM events WHERE event_id = #{eventId}	
+	</delete>
+	
+</mapper>

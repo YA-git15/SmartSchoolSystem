@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ログイン</title>
+</head>
+
+<body>
+	<h1>スマートスクールシステム</h1>
+	<p>アカウント種別を選択してください</p>
+	<p><a th:href="@{/login/teacherLogin}">教師アカウント</a></p>
+	<p><a th:href="@{/login/guardianLogin}">保護者アカウント</a></p>
+</body>
+
+</html>

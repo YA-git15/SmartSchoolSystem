@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新規行事追加</title>
+</head>
+<body>
+	<h1>[[${title}]]</h1>
+	<form th:action="@{/events/addEventConf}" th:object="${event}" method="post">
+				
+		<p>行事名：<input type="text" th:field="*{eventTitle}"></p>
+		<p th:errors="*{eventTitle}"></p>
+		
+		<p>実施日：<input type="date" th:field="*{eventDate}"></p>
+		<p th:errors="*{eventDate}"></p>
+		
+		<p>対象：<input type="text" th:field="*{eventTarget}"></p>
+		<p th:errors="*{eventTarget}"></p>
+		
+		<p>内容：<input type="text" th:field="*{eventDetail}"></p>
+		<p><input type="submit" value="入力内容確認"></p>
+		
+	</form>
+
+</body>
+</html>

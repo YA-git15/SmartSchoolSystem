@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+body {
+	font-family: "M PLUS 1", sans-serif;
+	font-weight: 500;
+	font-style: normal;
+	margin-top: 20px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.header {
+	white-space: nowrap;
+}
+
+.shcool-name-and-nav {
+	display: flex;
+	text-decoration: none;
+	justify-content: space-between;
+	align-items: center;
+	height: 50px;
+	color: #343a40;
+	padding-right: 15px;
+	margin-bottom: 5px;
+}
+
+/* ロゴと学校名の高さ調整 */
+.school-name {
+	display: flex;
+	align-items: center;
+}
+
+/* ナビゲーションリンクの配置調整 */
+.nav-link {
+	display: flex;
+	justify-content: end;
+	text-align: right;
+	padding-right: 5px;
+
+}
+
+.nav-link a {
+	text-decoration: none;
+	color: #343a40;
+	margin-left: 5px;
+}
+
+.nav-link :hover {
+	color: lightblue;
+}
+
+.header-img {
+	position: relative;
+	width: 100%;
+	height: auto;
+	margin-top: 5px;
+}
+
+/* header画像 */
+.card-img {
+	margin-bottom: 20px;
+}
+
+/* レスポンシブ対応の調整 */
+@media (max-width: 768px) {
+	.nav-link {
+		justify-content: flex-start;
+		text-align: left;
+		padding-left: 8px;
+		margin-bottom: 5px;
+	}
+
+	.page-title h1 {
+		font-size: 6vw;
+		/* モバイル画面ではさらに小さく */
+	}
+}
+
+
+main.container-fluid {
+	padding-left: 30px;
+}
+
+.latest-notice {
+	padding-top: 20px;
+}
+
+.latest-list {
+	white-space: nowrap;
+}
+
+.status {
+	font-size: 0.6em;
+	color: red;
+	text-align: center;
+}
+
+.th-last-update {
+	font-size: 0.8em;
+}
+
+.th-notice-date {
+	font-size: 0.8em;
+}
+
+.th-notice-title {
+	font-size: 0.8em;
+}
+
+.table-link {
+	display: block;
+	text-decoration: none;
+	color: #212529;
+}
+
+.about-school {
+	padding: 20px;
+}
+
+/*Notices*/
+/*listNotice*/
+main.main-contents {
+	padding-top: 20px;
+	padding-left: 20px;
+}
+
+.listnotice-table-date {
+	width: 10%;
+}
+
+.listnotice-tabel-title {
+	width: 20%;
+}
+
+.listnotice-tabel-detail {
+	width: 40%;
+}
+
+.listnotice-tabel-operation {
+	width: 15%;
+}
+
+
+.notice-detail {
+	overflow: hidden;
+	/* テキストがはみ出さないように隠す */
+	text-overflow: ellipsis;
+	/* はみ出した部分を「...」で表示 */
+}
+
+/* Events */
+#calendar {
+	width: 60% !important;	
+	height: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.fc {
+	margin-left: 20px !important;
+	margin-right: 0 !important;
+}
+
+.list-events {
+    padding-left: 60px; 
+}

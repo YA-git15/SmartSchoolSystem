@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>HOME</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<h1>スマートスクールシステム</h1>
+<ul>
+	<li><a th:href="@{home}">HOME</a></li>
+	<li><a th:href="@{notice}">お知らせ</a></li>
+	<li><a th:href="@{event}">行事予定</a></li>
+	<li><a th:href="@{inquery}">問い合わせ</a></li>
+	<li><a th:href="@{logout}">ログアウト</a></li>
+</ul>
+<p>学校画像</p>
+
+<h2>notice_title</h2>
+<table>
+	<p>notice_date</p>
+	<p>update_date</p>
+	<p>notice_detail</p>
+	<p>event_name</p>
+	<p>event_date</p>
+	<p>file</p>
+	<p><a href="">この行事について問い合わせる</a></p>
+</table>
+
+<h2>問い合わせ一覧</h2>
+<p>対象行事に対する問い合わせ一覧表示</p>

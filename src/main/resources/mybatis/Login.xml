@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sss.app.mapper.LoginMapper">
+
+	<!-- 教師用パスワード取得 -->
+	<select id="selectByEmailTeacher" resultType="Login">
+		SELECT * FROM
+		teacher_credentials WHERE email = #{email}
+	</select>
+
+	<!-- 保護者用認証 -->
+	<select id="selectByEmailGuardian" resultType="Login">
+		SELECT * FROM guardian_credentials WHERE email = #{email}
+	</select>
+
+</mapper>

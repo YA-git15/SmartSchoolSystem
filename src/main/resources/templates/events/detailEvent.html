@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>行事詳細</title>
+</head>
+<body>
+	<h1>【[[${event.eventTitle}]]】</h1>
+	<p>実施日：[[${#temporals.format(event.eventStartDatetime,'MM月dd日 HH:SS')}]]-[[${#temporals.format(event.eventEndDatetime,'HH:SS')}]]</p>
+	
+	
+
+</body>
+</html>

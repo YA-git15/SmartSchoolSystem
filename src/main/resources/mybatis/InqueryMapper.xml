@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sss.app.mapper.InqueryMapper">
+
+	<select id="selectInqueries" resultType="Inquery">
+		SELECT * FROM inqueries
+	</select>
+	
+	<select id="selectInqueryById">
+		SELECT * FROM inqueries WHERE inquery_id = #{inqueryId}
+	</select>
+	
+	<insert id="insert" parameterType="Inquery">
+		INSERT INTO inqueries(inquery_detail, answer, status, inquery_date)
+		VALUES (#{inqueryDetail}, #{answer}, #{status}, #{inqueryDate})	
+	</insert>
+	
+	<update id="update" parameterType="Inquery">
+		UPDATE inqueries
+		SET answer = #{answer},
+			status = #{status},
+			answer_date = #{answerDate}
+		WHERE inquery_id = #{inqueryId}	
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM inqueries WHERE inquery_id = #{inqueryId}	
+	</delete>
+	
+</mapper>
