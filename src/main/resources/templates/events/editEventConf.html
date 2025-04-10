@@ -3,36 +3,62 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 	<title>行事編集内容確認</title>
 </head>
 
 <body>
-	<h1>行事編集内容確認</h1>
+	<div class="card text-dark bg-info mb-3" style="max-width: 100%;">
+		<div class="card-header">行事編集</div>
+		<div class="card-body">
+			<h5 class="card-title">編集内容確認</h5>
+			<p class="card-text">以下の内容に変更しますか？</p>
+		</div>
+	</div>
 
-	<p>行事ID: [[${event.eventId}]]</p>
+	<p>行事ID:[[${event.eventId}]]</p>
 	<p>行事名: [[${event.eventTitle}]]</p>
-	<p>実施日: [[${#temporals.format(event.eventDate,'MM月dd日')}]]</p>
+	<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
+		～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
+	</p>
+	<p>場所： [[${event.eventPlace}]]</p>
 	<p>対象: [[${event.eventTarget}]]</p>
-	<p>内容: [[${event.eventDetail}]]</p>
+	<p>内容:
+	<div class="form-row-a">
+		<label for="eventDetail">内容</label>
+		<!-- Quillエディタの内容をそのまま表示 -->
+		<div id="eventDetailPreview" th:utext="${event.eventDetail}"></div>
+	</div>
+	</p>
 
 	<!-- 確認画面から修正画面に戻るためのフォーム -->
 	<form th:action="@{/events/editEvent/{id}(id=${event.eventId})}" method="post" th:object="${event}">
-		<input type="hidden" name="eventId" th:value="*{eventId}">
-		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventDate" th:value="*{eventDate}">
-		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
-		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
-		<button type="submit">編集画面に戻る</button>
+		<input type="text" name="eventId" th:value="${event.eventId}">
+		<input type="text" name="eventTitle" th:value="*{eventTitle}">
+		<input type="text" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="text" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="text" name="eventPlace" th:value="*{eventPlace}">
+		<input type="text" name="eventTarget" th:value="*{eventTarget}">
+		<input type="text" name="eventDetail" th:value="*{eventDetail}">
+		<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
 	</form>
 
 	<!-- 確認画面からDBに送信するためのフォーム -->
 	<form th:action="@{/events/editEventDone}" method="post" th:object="${event}">
-		<input type="hidden" name="eventId" th:value="*{eventId}">
-		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventDate" th:value="*{eventDate}">
-		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
-		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
-		<button type="submit">修正確定</button>
+		<input type="text" name="eventId" th:value="${event.eventId}">
+		<input type="text" name="eventTitle" th:value="*{eventTitle}">
+		<input type="text" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="text" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="text" name="eventPlace" th:value="*{eventPlace}">
+		<input type="text" name="eventTarget" th:value="*{eventTarget}">
+		<input type="text" name="eventDetail" th:value="*{eventDetail}">
+		<button type="submit" class="btn btn-outline-success">変更を保存</button>
 	</form>
 
 </body>

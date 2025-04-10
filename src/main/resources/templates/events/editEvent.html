@@ -1,28 +1,111 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>行事編集</title>
+	<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+	<title>行事編集</title>
 </head>
+
 <body>
-	<h1>行事編集</h1>
-	<form th:action="@{/events/editEventConf/{id}(id=${event.eventId})}" th:object="${event}" method="post">
-		
-		<p>行事ID:<input type="text" th:field="*{eventId}"></p>
-		
-		<p>行事名：<input type="text" th:field="*{eventTitle}"></p>
-		<p th:errors="*{eventTitle}"></p>
-		
-		<p>実施日：<input type="date" th:field="*{eventDate}"></p>
-		<p th:errors="*{eventDate}"></p>
-		
-		<p>対象：<input type="text" th:field="*{eventTarget}"></p>
-		<p th:errors="*{eventTarget}"></p>
-		
-		<p>内容：<input type="text" th:field="*{eventDetail}"></p>
-		<p><input type="submit" value="入力内容確認"></p>
-		
+	<header class="container-fluid header">
+		<div class="row shcool-name-and-nav">
+			<div class="col-12 col-md-6 school-name">
+				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
+					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
+						style="width: 20%; margin-right: 10px;">
+					<h2 class="mb-0">横浜市立新横浜小学校</h2>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-6 nav-link">
+				<div class="row navs">
+					<div class="col-3"><a th:href="@{/notices}">行事</a></div>
+					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
+					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
+					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</header>
+	<main>
+
+		<div class="card text-dark bg-info mb-3" style="max-width: 100%;">
+			<div class="card-header">行事編集</div>
+			<div class="card-body">
+				<h5 class="card-title">行事内容入力</h5>
+				<p class="card-text">以下のフォームに編集内容を入力してください</p>
+			</div>
+		</div>
+		<form th:action="@{/events/editEventConf/{id}(id=${event.eventId})}" th:object="${event}" method="post">
+			<div class="form-group">
+				<div class="form-row">
+					<label for="eventTitle">行事名</label>
+					<input type="text" id="eventTitle" th:field="*{eventTitle}">
+					<span th:errors="*{eventTitle}" class="error-message"></span>
+				</div>
+
+				<div class="form-row">
+					<label for="eventStartDatetime">開始</label>
+					<input type="datetime-local" id="eventStartDatetime" th:field="*{eventStartDatetime}">
+					<span>～</span>
+					<label for="eventEndDatetime">終了</label>
+					<input type="datetime-local" id="eventEndDatetime" th:field="*{eventEndDatetime}">
+				</div>
+
+				<div class="form-row">
+					<label for="eventPlace">場所</label>
+					<input type="text" id="eventPlace" th:field="*{eventPlace}">
+					<label for="eventTarget">対象</label>
+					<input type="text" id="eventTarget" th:field="*{eventTarget}">
+					<span th:errors="*{eventTarget}" class="error-message"></span>
+				</div>
+
+				<div class="form-row-a">
+					<label for="eventDetail">内容</label>
+					<div id="editor">
+						<p>Hello World!</p>
+						<p>Some initial <strong>bold</strong> text</p>
+						<p><br /></p>
+					</div>
+
+					<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
+						style="display: none;"></textarea>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">編集内容確認</button>
+	</main>
+
 	</form>
 
+	<!-- Include the Quill library -->
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		const quill = new Quill('#editor', {
+			theme: 'snow'
+		});
+
+		const form = document.querySelector('form');
+		form.onsubmit = function () {
+			// Get the Quill editor content and set it to the textarea
+			const eventDetail = document.querySelector('#eventDetail');
+			eventDetail.value = quill.root.innerHTML;  // Quill editor's HTML content
+		};
+	</script>
+
 </body>
+
 </html>

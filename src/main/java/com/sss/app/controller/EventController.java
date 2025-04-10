@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sss.app.domain.Event;
@@ -36,7 +37,7 @@ public class EventController {
 	//		return "events/listEvent";
 	//	}
 	// 行事一覧をカレンダーに表示
-	
+
 	@GetMapping
 	public String list(Model model) throws Exception {
 		List<Event> events = service.getEventList();
@@ -56,23 +57,39 @@ public class EventController {
 			Map<String, Object> eventMap = new HashMap<>();
 			eventMap.put("id", event.getEventId());
 			eventMap.put("title", event.getEventTitle());
-			eventMap.put("start", event.getEventStartDatetime().format(dtf)); // 日付を文字列で渡す
-			eventMap.put("end", event.getEventEndDatetime().format(dtf)); // 終了日も同じ日付で設定（イベントが1日だけの場合）
+			eventMap.put("start", event.getEventStartDatetime().format(dtf));
+
+			// 開始と終了の年月日が異なり、終了時刻が00:00:00の場合
+			if (!event.getEventStartDatetime().toLocalDate().isEqual(event.getEventEndDatetime().toLocalDate()) &&
+					event.getEventEndDatetime().getHour() == 0 &&
+					event.getEventEndDatetime().getMinute() == 0 &&
+					event.getEventEndDatetime().getSecond() == 0) {
+				// 終了日時に1日加算
+				eventMap.put("end", event.getEventEndDatetime().plusDays(1).format(dtf));
+			} else {
+				// 他の場合は終了日時そのまま
+				eventMap.put("end", event.getEventEndDatetime().format(dtf));
+			}
+
 			eventMap.put("target", event.getEventTarget());
 			eventList.add(eventMap);
 		}
-
 		return eventList;
 	}
-	
+
 	//行事詳細の表示
 	@GetMapping("/detailEvent/{id}")
-	public String detailEvent(@PathVariable Integer id, Model model) throws Exception{
+	public String detailEvent(@PathVariable Integer id,
+			@RequestParam(name = "fragment", required = false) Boolean isFragment,
+			Model model) throws Exception {
 		model.addAttribute("event", service.getEventById(id));
-		return "events/detailEvent";
+		if (Boolean.TRUE.equals(isFragment)) {
+			return "events/detailEvent :: detail"; // フラグメントのみ返す
+		} else {
+			return "events/detailEvent"; // ページ全体を表示
+		}
 	}
 
-	
 	//行事の追加・編集
 	//追加画面遷移
 	@GetMapping("/addEvent")
@@ -104,7 +121,7 @@ public class EventController {
 			@ModelAttribute("event") Event event,
 			Model model) throws Exception {
 		model.addAttribute("event", event);
-		return "events/addEvent";
+		return "/events/addEvent";
 	}
 
 	//確認画面→追加実行
@@ -136,8 +153,8 @@ public class EventController {
 		}
 
 		//エラーなし→確認画面へ
+		event.setEventId(id);
 		model.addAttribute("event", event);
-
 		return "events/editEventConf";
 
 	}
@@ -148,7 +165,7 @@ public class EventController {
 			@ModelAttribute("event") Event event,
 			Model model) throws Exception {
 		model.addAttribute("event", event);
-		return "events/editEvent";
+		return "/events/editEvent";
 	}
 
 	//確認画面→追加実行
