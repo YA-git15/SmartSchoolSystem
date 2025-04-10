@@ -21,7 +21,7 @@
 		UPDATE events
 		SET event_title = #{eventTitle},
 			event_start_datetime = #{eventStartDatetime},
-			event_end_datetime = #{eventEndDatetime}
+			event_end_datetime = #{eventEndDatetime},
 			event_place = #{eventPlace},
 			event_target = #{eventTarget},
 			event_detail = #{eventDetail}

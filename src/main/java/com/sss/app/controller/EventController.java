@@ -177,6 +177,16 @@ public class EventController {
 		service.editEvent(event);
 		return "events/editEventDone";
 	}
+	
+	//確認画面→追加実行
+		@GetMapping("/editEventDone")
+		public String editEventGet(
+				Event event,
+				Model model) throws Exception {
+			model.addAttribute("event", event);
+			service.editEvent(event);
+			return "events/editEventDone";
+		}
 
 	//行事の削除
 	//削除対象確認
