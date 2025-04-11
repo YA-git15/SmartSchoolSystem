@@ -155,18 +155,36 @@ main.main-contents {
 }
 
 #calendar {
-	width: 100% !important;
-	height: 100% !important;
-	margin-top: 20px !important;
-	margin-left: 5px !important;
-	padding-right: 30px !important;
-	font-size: 1vw !important;
+	width: 100%;
+	height: 100%;
+	margin-top: 20px;
+	margin-left: 5px;
+	padding-right: 30px;
+	font-size: 1vw;
 }
 
 .fc .fc-col-header-cell-cushion,
 .fc .fc-daygrid-day-number {
-	text-decoration: none !important;
+	text-decoration: none;
 	color: #212529;
+}
+
+/* ▼ 曜日表示（日〜土）の色変更 */
+.fc-col-header-cell:first-child .fc-col-header-cell-cushion {
+	color: red;	
+}
+
+.fc-col-header-cell:last-child .fc-col-header-cell-cushion {
+	color: blue;
+}
+
+/* ▼ 各日付部分の色変更（日曜:赤、土曜:青） */
+.fc-daygrid-day.fc-day-sun .fc-daygrid-day-number {
+	color: red;
+}
+
+.fc-daygrid-day.fc-day-sat .fc-daygrid-day-number {
+	color: blue;
 }
 
 
