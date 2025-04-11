@@ -2,13 +2,21 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<title>お知らせ一覧</title>
 </head>
 
@@ -40,26 +48,28 @@
 			<div class="card-img-overlay d-flex">
 				<div class="my-auto">
 					<h1 class="page-title">Annoucement</h1>
+					<a class="btn btn-primary" th:href="@{/notices/addNotice}">
+						<i class="bi bi-plus-circle"></i>新規お知らせ作成
+					</a>
 				</div>
 			</div>
 
 		</div>
 	</header>
 	<main class="main-contents">
-		<p><a th:href="@{/notices/addNotice}">新規お知らせの追加</a></p>
-
 		<table class="table table-hover listnotice-table">
 			<thead>
 				<tr>
+					<th>ステータス</th>
 					<th class="listnotice-table-date">最終更新日</th>
 					<th class="listnotice-table-date">通知日</th>
 					<th class="listnotice-tabel-title">タイトル</th>
 					<th class="listnotice-tabel-detail">詳細</th>
-					<th colspan="3" class="listnotice-tabel-operation">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="notice : ${notices}">
+					<td class="status">[[${notice.updateStatus}]]</td>
 					<td>
 						<span>[[${#temporals.format(notice.lastUpdate,'MM月dd日')}]]</span><br>
 						<span>[[${#temporals.format(notice.lastUpdate,'HH:mm')}]]</span>
@@ -70,13 +80,6 @@
 					</td>
 					<td>[[${notice.noticeTitle}]]</td>
 					<td class="notice-detail">[[${notice.noticeDetail}]]</td>
-					<td><a class="btn btn-primary" th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">詳細</a>
-					</td>
-					<td><a class="btn btn-warning" th:href="@{/notices/editNotice/{id}(id=${notice.noticeId})}">編集</a>
-					</td>
-					<td><a class="btn btn-danger"
-							th:href="@{/notices/deleteNoticeConf/{id}(id=${notice.noticeId})}">削除</a>
-					</td>
 				</tr>
 			</tbody>
 		</table>

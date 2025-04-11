@@ -21,7 +21,23 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<Notice> getNoticeList() throws Exception {
-		return noticeMapper.selectNotices();
+		List<Notice> notices = noticeMapper.selectNotices();
+		LocalDateTime now = LocalDateTime.now();
+
+		for (Notice notice : notices) {
+			// 1. noticeDateとlastUpdateが同じでない、かつ、lastUpdateが今日から7日以内ならUPDATEを格納
+			if (!notice.getNoticeDate().isEqual(notice.getLastUpdate()) &&
+					Duration.between(notice.getLastUpdate(), now).toDays() >= 0 &&
+					Duration.between(notice.getLastUpdate(), now).toDays() <= 7) {
+				notice.setUpdateStatus("UPDATE");
+			}
+			// 2. 上記以外でlastUpdateが今日から7日以内ならNEWを格納
+			else if (Duration.between(notice.getLastUpdate(), now).toDays() >= 0 &&
+					Duration.between(notice.getLastUpdate(), now).toDays() <= 7) {
+				notice.setUpdateStatus("!NEW!");
+			}
+		}
+		return notices;
 	}
 
 	@Override

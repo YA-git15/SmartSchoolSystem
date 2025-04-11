@@ -119,10 +119,11 @@ main.container-fluid {
 
 /*Notices*/
 /*listNotice*/
-main.main-contents {
-	padding-top: 20px;
+.main-contents {
+	padding: 20px;
 	padding-left: 20px;
 	padding-right: 20px;
+	padding-bottom: 50px;
 }
 
 .listnotice-table-date {
@@ -187,7 +188,13 @@ main.main-contents {
 	color: blue;
 }
 
+.table thead tr {
+    border-bottom: 2px solid #007bff;
+}
 
+.table tbody tr:hover {
+    background-color: lightcyan; 	
+}
 
 .list-events-title {
 	font-size: 2em;

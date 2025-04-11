@@ -4,19 +4,21 @@
 <head>
 	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- CSS -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/fullcalendar.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 	<!-- JS -->
 	<script th:src="@{/js/fullcalendar.js}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 
 <body>
@@ -46,9 +48,9 @@
 			<img src="images/header.jpg" class="card-img" alt="背景画像">
 			<div class="card-img-overlay d-flex">
 				<div class="my-auto">
-					<h1 class="page-title">行事カレンダー</h1>
+					<h1 class="page-title">行事予定</h1>
 					<a class="btn btn-primary" th:href="@{/events/addEvent}">
-						<i class="bi bi-plus-circle"></i>行事新規追加
+						<i class="bi bi-plus-circle"></i>新規行事作成
 					</a>
 				</div>
 			</div>
@@ -61,21 +63,23 @@
 			<div class="row">
 				<div class="col-8">
 					<div class="row">
-						<div class="col-12 calendar-events-title">月間予定</div>
+						<div class="col-12 calendar-events-title">月間</div>
 						<div class="col-12 calendar-events" id='calendar'></div>
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="row">
-						<div class="col-12 list-events-title">年間予定</div>
+						<div class="col-12 list-events-title">年間</div>
 						<div class="col-12 list-events">
-							<table class="table table-hover listnotice-table">
+							<table class="table table-hover listevent-table">
 								<thead>
 									<tr>
-										<div class="row event-list">
-											<div class="col-7 event-date">Date</div>
-											<div class="col-5 event-title">行事名</div>
-										</div>
+										<th>
+											<div class="row event-list">
+												<div class="col-7 event-date">Date</div>
+												<div class="col-5 event-title">行事名</div>
+											</div>
+										</th>
 									</tr>
 								</thead>
 								<tbody>
