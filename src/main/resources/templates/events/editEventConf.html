@@ -22,7 +22,6 @@
 		</div>
 	</div>
 
-	<p>行事ID:[[${event.eventId}]]</p>
 	<p>行事名: [[${event.eventTitle}]]</p>
 	<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
 		～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
@@ -39,25 +38,25 @@
 
 	<!-- 確認画面から修正画面に戻るためのフォーム -->
 	<form th:action="@{/events/editEvent/{id}(id=${event.eventId})}" method="post" th:object="${event}">
-		<input type="text" name="eventId" th:value="${event.eventId}">
-		<input type="text" name="eventTitle" th:value="*{eventTitle}">
-		<input type="text" name="eventStartDatetime" th:value="*{eventStartDatetime}">
-		<input type="text" name="eventEndDatetime" th:value="*{eventEndDatetime}">
-		<input type="text" name="eventPlace" th:value="*{eventPlace}">
-		<input type="text" name="eventTarget" th:value="*{eventTarget}">
-		<input type="text" name="eventDetail" th:value="*{eventDetail}">
+		<input type="hidden" name="eventId" th:value="${event.eventId}">
+		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
+		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
+		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
+		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
 		<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
 	</form>
 
 	<!-- 確認画面からDBに送信するためのフォーム -->
 	<form th:action="@{/events/editEventDone}" method="post" th:object="${event}">
-		<input type="text" name="eventId" th:value="${event.eventId}">
-		<input type="text" name="eventTitle" th:value="*{eventTitle}">
-		<input type="text" name="eventStartDatetime" th:value="*{eventStartDatetime}">
-		<input type="text" name="eventEndDatetime" th:value="*{eventEndDatetime}">
-		<input type="text" name="eventPlace" th:value="*{eventPlace}">
-		<input type="text" name="eventTarget" th:value="*{eventTarget}">
-		<input type="text" name="eventDetail" th:value="*{eventDetail}">
+		<input type="hidden" name="eventId" th:value="${event.eventId}">
+		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
+		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
+		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
+		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
 		<button type="submit" class="btn btn-outline-success">変更を保存</button>
 	</form>
 

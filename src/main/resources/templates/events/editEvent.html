@@ -73,10 +73,7 @@
 
 				<div class="form-row-a">
 					<label for="eventDetail">内容</label>
-					<div id="editor">
-						<p>Hello World!</p>
-						<p>Some initial <strong>bold</strong> text</p>
-						<p><br /></p>
+					<div id="editor" th:utext="*{eventDetail}">
 					</div>
 
 					<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
@@ -94,10 +91,30 @@
 
 	<!-- Initialize Quill editor -->
 	<script>
+		const toolbarOptions = [
+			['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+			['link', 'image'],
+
+			[{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
+			[{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+			[{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+
+			[{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+			[{'header': [1, 2, 3, 4, 5, 6, false]}],
+
+			[{'color': []}, {'background': []}],          // dropdown with defaults from theme
+			[{'font': []}],
+			[{'align': []}],
+
+			['clean']                                         // remove formatting button
+		];
+
 		const quill = new Quill('#editor', {
+			modules: {
+				toolbar: toolbarOptions
+			},
 			theme: 'snow'
 		});
-
 		const form = document.querySelector('form');
 		form.onsubmit = function () {
 			// Get the Quill editor content and set it to the textarea

@@ -86,7 +86,7 @@
 					<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日 HH:mm:ss')}"></span>
 				</span>
 			</p>
-			<p th:text="${event.eventDetail}"></p>
+			<p th:utext="${event.eventDetail}"></p>
 		</div>
 
 		<!-- モーダル表示 -->
@@ -130,7 +130,7 @@
 				</span>
 			</p>
 			<p>場所：[[${event.eventPlace}]]</p>
-			<p th:text="${event.eventDetail}"></p>
+			<p th:utext="${event.eventDetail}"></p>
 
 	</main>
 

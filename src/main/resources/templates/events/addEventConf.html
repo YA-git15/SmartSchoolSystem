@@ -3,48 +3,62 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>[[${title}]]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+	<title>新規行事追加内容確認</title>
 </head>
 
 <body>
-	<h1>[[${title}]]</h1>
+	<main>
+		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+			<div class="card-header">新規行事作成</div>
+			<div class="card-body">
+				<h5 class="card-title">行事内容確認</h5>
+				<p class="card-text">以下の内容で行事登録しますか？</p>
+			</div>
+		</div>
+		
+		<p>行事名: [[${event.eventTitle}]]</p>
+		<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
+			～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
+		</p>
+		<p>場所： [[${event.eventPlace}]]</p>
+		<p>対象: [[${event.eventTarget}]]</p>
+		<p>内容:
+		<div class="form-row-a">
+			<label for="eventDetail">内容</label>
+			<!-- Quillエディタの内容をそのまま表示 -->
+			<div id="eventDetailPreview" th:utext="${event.eventDetail}"></div>
+		</div>
+		</p>
 
-	<p>行事名: [[${event.eventTitle}]]</p>
-	<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
-		～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
-	</p>
-	<p>場所： [[${event.eventPlace}]]</p>
-	<p>対象: [[${event.eventTarget}]]</p>
-	<p>内容:
-	<div class="form-row-a">
-		<label for="eventDetail">内容</label>
-		<!-- Quillエディタの内容をそのまま表示 -->
-		<div id="eventDetailPreview" th:utext="${event.eventDetail}"></div>
-	</div>
-	</p>
+		<!-- 確認画面から修正画面に戻るためのフォーム -->
+		<form th:action="@{/events/addEvent}" method="post" th:object="${event}">
+			<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
+			<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+			<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+			<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
+			<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
+			<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
+			<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
+		</form>
 
-	<!-- 確認画面から修正画面に戻るためのフォーム -->
-	<form action="/events/addEvent" method="post" th:object="${event}">
-		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
-		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
-		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
-		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
-		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
-		<button type="submit">入力内容修正</button>
-	</form>
-
-	<!-- 確認画面からDBに送信するためのフォーム -->
-	<form action="/events/addEventDone" method="post" th:object="${event}">
-		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
-		<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
-		<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
-		<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
-		<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
-		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
-		<button type="submit">新規行事追加</button>
-	</form>
-
+		<!-- 確認画面からDBに送信するためのフォーム -->
+		<form th:action="@{/events/addEventDone}" method="post" th:object="${event}">
+			<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
+			<input type="hidden" name="eventStartDatetime" th:value="*{eventStartDatetime}">
+			<input type="hidden" name="eventEndDatetime" th:value="*{eventEndDatetime}">
+			<input type="hidden" name="eventPlace" th:value="*{eventPlace}">
+			<input type="hidden" name="eventTarget" th:value="*{eventTarget}">
+			<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
+			<button type="submit" class="btn btn-outline-success">新規行事を保存</button>
+		</form>
+	</main>
 </body>
 
 </html>

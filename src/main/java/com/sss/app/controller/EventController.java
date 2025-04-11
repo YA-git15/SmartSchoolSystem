@@ -1,5 +1,8 @@
 package com.sss.app.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +97,11 @@ public class EventController {
 	//追加画面遷移
 	@GetMapping("/addEvent")
 	public String addEventGet(Model model) throws Exception {
-		model.addAttribute("event", new Event());
+		Event event = new Event();
+		LocalDate today = LocalDate.now();
+		event.setEventStartDatetime(LocalDateTime.of(today, LocalTime.MIDNIGHT));
+		event.setEventEndDatetime(LocalDateTime.of(today, LocalTime.MIDNIGHT));
+		model.addAttribute("event", event);
 		return "events/addEvent";
 	}
 

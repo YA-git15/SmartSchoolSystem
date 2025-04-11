@@ -63,8 +63,6 @@
 				<div class="col-8">
 					<div class="row">
 						<div class="col-12 calendar-events-title">月間予定</div>
-					</div>
-					<div class="row">
 						<div class="col-12 calendar-events" id='calendar'></div>
 					</div>
 				</div>
@@ -76,8 +74,8 @@
 								<thead>
 									<tr>
 										<div class="row event-list">
-											<div class="col-4 event-date">Date</div>
-											<div class="col-8 event-title">行事名</div>
+											<div class="col-7 event-date">Date</div>
+											<div class="col-5 event-title">行事名</div>
 										</div>
 									</tr>
 								</thead>
@@ -89,10 +87,19 @@
 												onclick="showEventDetails(this)">
 
 												<div class="row event-list">
-													<div class="col-4">
-														[[${#temporals.format(event.eventStartDatetime,'MM月dd日')}]]
+													<div class="col-7"
+														th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') == #temporals.format(event.eventEndDatetime,'MM月dd日')}">
+														[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]
 													</div>
-													<div class="col-8">[[${event.eventTitle}]]</div>
+													<div class="col-7"
+														th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') != #temporals.format(event.eventEndDatetime,'MM月dd日')}">
+														[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]-
+														[[${#temporals.format(event.eventEndDatetime,'M月d日')}]]
+													</div>
+
+
+
+													<div class="col-5">[[${event.eventTitle}]]</div>
 												</div>
 											</div>
 										</td>
@@ -142,6 +149,9 @@
 				displayEventTime: false,
 				timeZone: 'Asia/Tokyo',  // 日本時間に設定
 				locale: 'ja',
+				dayCellContent: function (arg) {
+					return arg.date.getDate();
+				},
 				width: 150,
 
 				headerToolbar: {
@@ -202,19 +212,19 @@
 						// フルページを新しいウィンドウで開く
 						window.open(`/events/detailEvent/${eventId}`, '_blank');
 					});
-					
+
 					// 編集画面を開くボタンの設定
 					document.getElementById('openInEditWindowBtn').addEventListener('click', function () {
 						// 編集ページを新しいウィンドウで開く
 						window.open(`/events/editEvent/${eventId}`, '_blank');
-					});	
-									
+					});
+
 					// 削除画面を開くボタンの設定
 					document.getElementById('openInDeleteWindowBtn').addEventListener('click', function () {
 						// 削除ページを新しいウィンドウで開く
 						window.open(`/events/deleteEventConf/${eventId}`, '_blank');
 					});
-					
+
 				})
 				.catch(error => {
 					console.error('エラー:', error);

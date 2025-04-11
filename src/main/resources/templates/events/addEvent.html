@@ -26,7 +26,7 @@
 
 			<div class="col-12 col-md-6 nav-link">
 				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">行事</a></div>
+					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
 					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
 					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
 					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
@@ -72,9 +72,7 @@
 				<div class="form-row-a">
 					<label for="eventDetail">内容</label>
 					<div id="editor">
-						<p>Hello World!</p>
-						<p>Some initial <strong>bold</strong> text</p>
-						<p><br /></p>
+						
 					</div>
 
 					<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
@@ -114,7 +112,8 @@
 			modules: {
 				toolbar: toolbarOptions
 			},
-			theme: 'snow'
+			theme: 'snow',
+			placeholder: ''
 		});
 
 		const form = document.querySelector('form');

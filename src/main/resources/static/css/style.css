@@ -155,12 +155,21 @@ main.main-contents {
 }
 
 #calendar {
-	width: 90% !important;
+	width: 100% !important;
 	height: 100% !important;
 	margin-top: 20px !important;
 	margin-left: 5px !important;
-	margin-right: 5pz !important;
+	padding-right: 30px !important;
+	font-size: 1vw !important;
 }
+
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number {
+	text-decoration: none !important;
+	color: #212529;
+}
+
+
 
 .list-events-title {
 	font-size: 2em;

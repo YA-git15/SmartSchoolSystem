@@ -3,27 +3,75 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 	<title>行事削除確認</title>
 </head>
 
 <body>
-	<h1>行事削除確認</h1>
+	<main>
+		<div class="card text-white bg-danger mb-3" style="max-width: 100%;">
+			<div class="card-header">行事削除</div>
+			<div class="card-body">
+				<h5 class="card-title">行事削除確認</h5>
+				<p class="card-text">以下の行事を削除しますか？</p>
+			</div>
+		</div>
+		<p>行事名: [[${event.eventTitle}]]</p>
+		<p>実施日：
+			<!-- 開始終了がすべて同じで時間が00:00:00 -->
+			<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd HH:mm') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd HH:mm')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'}">
+				<!-- 開始月日表示-->
+				<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+			</span>
 
-	<p>以下の行事を削除します。よろしいですか？</p>
+			<!-- 開始終了の年月日が同じで時間が異なる -->
+			<span
+				th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
+				<!-- 開始月日時間～終了時間表示-->
+				<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm')}"></span>
+				～
+				<span th:text="${#temporals.format(event.eventEndDatetime, 'HH:mm')}"></span>
+			</span>
 
-	<h2>【[[${event.eventTitle}]]】</h2>
-	<p>実施日：[[${#temporals.format(event.eventDate,'MM月dd日')}]]</p> <!-- 削除確認フォーム -->
-	<p>行事ID：[[${event.eventId}]]</p>
-	<p>行事名: [[${event.eventTitle}]]</p>
-	<p>実施日: [[${#temporals.format(event.eventDate,'MM月dd日')}]]</p>
-	<p>対象: [[${event.eventTarget}]]</p>
+			<!-- 開始終了の年月日が異なり時間が00:00:00 -->
+			<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'
+								and #temporals.format(event.eventEndDatetime, 'HH:mm:ss') == '00:00:00'}">
+				<!-- 開始月日～終了月日表示-->
+				<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+				～
+				<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日')}"></span>
+			</span>
 
-	<form th:action="@{/events/deleteEventDone/{id}(id=${event.eventId})}" method="post">
-		<input type="submit" th:value="削除"></input>
+			<!-- 開始終了の年月日時間すべてが異なる -->
+			<span
+				th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
+				<!-- 開始月日時間～終了月日時間表示-->
+				<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+				～
+				<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+			</span>
+		</p>
 
-	</form>
+		<p>場所: [[${event.eventPlace}]]</p>
+		<p>対象: [[${event.eventTarget}]]</p>
+		<p>内容：
+		<div id="eventDetailPreview" th:utext="${event.eventDetail}"></div>
+		</p>
 
-
+		<form th:action="@{/events/deleteEventDone/{id}(id=${event.eventId})}" method="post">
+			<button type="submit" class="btn btn-outline-danger">削 除</button>
+		</form>
+	</main>
 </body>
 
 </html>
