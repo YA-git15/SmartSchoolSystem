@@ -9,52 +9,46 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
-	<title>新規お知らせ作成</title>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+	<title>新規行事追加内容確認</title>
 </head>
 
 <body>
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
-
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
-
-		</div>
-
-
-		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
-			<div class="card-header">新規お知らせ作成</div>
-			<div class="card-body">
-				<h5 class="card-title">投稿内容確認</h5>
-				<p class="card-text"> 内容に間違いがないか確認してください</p>
-			</div>
-		</div>
-	</header>
 	<main>
-		<h1>新規お知らせ作成</h1>
+		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+			<div class="card-header">新規行事作成</div>
+			<div class="card-body">
+				<h5 class="card-title">行事内容確認</h5>
+				<p class="card-text">以下の内容で行事登録しますか？</p>
+			</div>
+		</div>
 		
-	</main>
-	<table>
-		<p>投稿タイトル</p>
-		<p>内容</p>
-		<p>行事名</p>
-		<p>実施日</p>
-		<p>添付ファイル</p>
-		
-	</table>
+		<p>行事名: [[${notice.noticeTitle}]]</p>
+		<p>対象: [[${notice.noticeTarget}]]</p>
+		<p>内容:
+		<div class="form-row-a">
+			<label for="noticeDetail">内容</label>
+			<!-- Quillエディタの内容をそのまま表示 -->
+			<div id="noticeDetailPreview" th:utext="${notice.noticeDetail}"></div>
+		</div>
+		</p>
 
+		<!-- 確認画面から修正画面に戻るためのフォーム -->
+		<form th:action="@{/notices/addNotice}" method="post" th:object="${notice}">
+			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
+			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+			<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
+		</form>
+
+		<!-- 確認画面からDBに送信するためのフォーム -->
+		<form th:action="@{/notices/addNoticeDone}" method="post" th:object="${notice}">
+			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
+			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+			<button type="submit" class="btn btn-outline-success">新規行事を保存</button>
+		</form>
+	</main>
 </body>
+
 </html>

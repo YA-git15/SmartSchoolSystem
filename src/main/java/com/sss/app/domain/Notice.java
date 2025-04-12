@@ -26,5 +26,7 @@ public class Notice {
 	private LocalDateTime lastUpdate;
 	
 	private String updateStatus;
+	
+	private String noticeTarget;
 
 }
