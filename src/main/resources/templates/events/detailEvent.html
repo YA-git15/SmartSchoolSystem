@@ -53,7 +53,7 @@
 				<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd HH:mm') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd HH:mm')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'}">
 					<!-- 開始月日表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
 				</span>
 
 				<!-- 開始終了の年月日が同じで時間が異なる -->
@@ -61,7 +61,7 @@
 					th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
 					<!-- 開始月日時間～終了時間表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm')}"></span>
 					～
 					<span th:text="${#temporals.format(event.eventEndDatetime, 'HH:mm')}"></span>
 				</span>
@@ -71,9 +71,9 @@
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'
 								and #temporals.format(event.eventEndDatetime, 'HH:mm:ss') == '00:00:00'}">
 					<!-- 開始月日～終了月日表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
 					～
-					<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日')}"></span>
 				</span>
 
 				<!-- 開始終了の年月日時間すべてが異なる -->
@@ -81,9 +81,9 @@
 					th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
 					<!-- 開始月日時間～終了月日時間表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm:ss')}"></span>
 					～
-					<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+					<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日 HH:mm:ss')}"></span>
 				</span>
 			</p>
 			<p th:utext="${event.eventDetail}"></p>
@@ -96,7 +96,7 @@
 				<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd HH:mm') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd HH:mm')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'}">
 					<!-- 開始月日表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
 				</span>
 
 				<!-- 開始終了の年月日が同じで時間が異なる -->
@@ -104,7 +104,7 @@
 					th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
 					<!-- 開始月日時間～終了時間表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm')}"></span>
 					～
 					<span th:text="${#temporals.format(event.eventEndDatetime, 'HH:mm')}"></span>
 				</span>
@@ -114,9 +114,9 @@
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'
 								and #temporals.format(event.eventEndDatetime, 'HH:mm:ss') == '00:00:00'}">
 					<!-- 開始月日～終了月日表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
 					～
-					<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日')}"></span>
+					<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日')}"></span>
 				</span>
 
 				<!-- 開始終了の年月日時間すべてが異なる -->
@@ -124,11 +124,10 @@
 					th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
 								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
 					<!-- 開始月日時間～終了月日時間表示-->
-					<span th:text="${#temporals.format(event.eventStartDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+					<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm:ss')}"></span>
 					～
-					<span th:text="${#temporals.format(event.eventEndDatetime, 'MM月dd日 HH:mm:ss')}"></span>
+					<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日 HH:mm:ss')}"></span>
 				</span>
-			</p>
 			<p>場所：[[${event.eventPlace}]]</p>
 			<p th:utext="${event.eventDetail}"></p>
 

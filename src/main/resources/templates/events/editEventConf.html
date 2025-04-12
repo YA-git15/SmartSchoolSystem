@@ -23,8 +23,43 @@
 	</div>
 
 	<p>行事名: [[${event.eventTitle}]]</p>
-	<p>開始: [[${#temporals.format(event.eventStartDatetime,'MM月dd日HH:mm')}]]
-		～ 終了: [[${#temporals.format(event.eventEndDatetime,'MM月dd日HH:mm')}]]
+	<p>実施日：
+		<!-- 開始終了がすべて同じで時間が00:00:00 -->
+		<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd HH:mm') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd HH:mm')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'}">
+			<!-- 開始月日表示-->
+			<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
+		</span>
+
+		<!-- 開始終了の年月日が同じで時間が異なる -->
+		<span
+			th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') == #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
+			<!-- 開始月日時間～終了時間表示-->
+			<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm')}"></span>
+			～
+			<span th:text="${#temporals.format(event.eventEndDatetime, 'HH:mm')}"></span>
+		</span>
+
+		<!-- 開始終了の年月日が異なり時間が00:00:00 -->
+		<span th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') == '00:00:00'
+								and #temporals.format(event.eventEndDatetime, 'HH:mm:ss') == '00:00:00'}">
+			<!-- 開始月日～終了月日表示-->
+			<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日')}"></span>
+			～
+			<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日')}"></span>
+		</span>
+
+		<!-- 開始終了の年月日時間すべてが異なる -->
+		<span
+			th:if="${#temporals.format(event.eventStartDatetime, 'yyyy-MM-dd') != #temporals.format(event.eventEndDatetime, 'yyyy-MM-dd')
+								and #temporals.format(event.eventStartDatetime, 'HH:mm:ss') != #temporals.format(event.eventEndDatetime, 'HH:mm:ss')}">
+			<!-- 開始月日時間～終了月日時間表示-->
+			<span th:text="${#temporals.format(event.eventStartDatetime, 'M月d日 HH:mm:ss')}"></span>
+			～
+			<span th:text="${#temporals.format(event.eventEndDatetime, 'M月d日 HH:mm:ss')}"></span>
+		</span>
 	</p>
 	<p>場所： [[${event.eventPlace}]]</p>
 	<p>対象: [[${event.eventTarget}]]</p>
@@ -59,6 +94,8 @@
 		<input type="hidden" name="eventDetail" th:value="*{eventDetail}">
 		<button type="submit" class="btn btn-outline-success">変更を保存</button>
 	</form>
+	
+	<a th:href="@{/events}" class="btn btn-outline-dark">キャンセル</a>
 
 </body>
 

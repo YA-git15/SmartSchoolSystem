@@ -232,19 +232,78 @@
 						return;
 					}
 
-					// 通常イベントのクリック処理
-					var eventId = info.event.id;
-					var eventTitle = info.event.title;
-					var eventElement = document.createElement('div');
-					eventElement.setAttribute('data-id', eventId);
-					eventElement.setAttribute('data-title', eventTitle);
-					showEventDetails(eventElement);
+					// カレンダーのクリック時はイベントIDとタイトルを渡す
+					showEventDetailsById(info.event.id, info.event.title);
 				}
 			});
 
 			calendar.setOption('aspectRatio', 1.5);
 			calendar.render();
 		});
+
+		// カレンダー用の詳細表示関数
+		function showEventDetailsById(eventId, eventTitle) {
+			document.getElementById('eventDetailsLabel').innerText = eventTitle + ' 詳細';
+
+			fetch(`/events/detailEvent/${eventId}?fragment=true`)
+				.then(response => response.text())
+				.then(data => {
+					document.getElementById('eventDetailsContent').innerHTML = data;
+
+					var eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+					eventDetailsModal.show();
+
+					document.getElementById('openInNewWindowBtn').addEventListener('click', function () {
+						window.open(`/events/detailEvent/${eventId}`, '_blank');
+					});
+
+					document.getElementById('openInEditWindowBtn').addEventListener('click', function () {
+						window.location.href = `/events/editEvent/${eventId}`;
+					});
+
+					document.getElementById('openInDeleteWindowBtn').addEventListener('click', function () {
+						window.location.href = `/events/deleteEventConf/${eventId}`;
+					});
+				})
+				.catch(error => {
+					console.error('エラー:', error);
+					document.getElementById('eventDetailsContent').innerText = '詳細の読み込みに失敗しました。';
+				});
+		}
+
+		// テーブル用の詳細表示関数（thisでdata-idを使う）
+		function showEventDetails(element) {
+			const eventId = element.getAttribute('data-id');
+			const eventTitle = element.getAttribute('data-title');
+
+			document.getElementById('eventDetailsLabel').innerText = eventTitle + ' 詳細';
+
+			fetch(`/events/detailEvent/${eventId}?fragment=true`)
+				.then(response => response.text())
+				.then(data => {
+					document.getElementById('eventDetailsContent').innerHTML = data;
+
+					var eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+					eventDetailsModal.show();
+
+					document.getElementById('openInNewWindowBtn').addEventListener('click', function () {
+						window.open(`/events/detailEvent/${eventId}`, '_blank');
+					});
+
+					document.getElementById('openInEditWindowBtn').addEventListener('click', function () {
+						window.location.href = `/events/editEvent/${eventId}`;
+					});
+
+					document.getElementById('openInDeleteWindowBtn').addEventListener('click', function () {
+						window.location.href = `/events/deleteEventConf/${eventId}`;
+					});
+				})
+				.catch(error => {
+					console.error('エラー:', error);
+					document.getElementById('eventDetailsContent').innerText = '詳細の読み込みに失敗しました。';
+				});
+		}
+
 
 	</script>
 
