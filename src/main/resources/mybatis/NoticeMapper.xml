@@ -7,35 +7,41 @@
 		SELECT * FROM notices
 		ORDER BY last_update DESC
 	</select>
-	
+
 	<select id="selectLatestNotices" resultType="Notice">
-		SELECT * FROM notices
+		SELECT * FROM
+		notices
 		ORDER BY last_update DESC
 		LIMIT 5
 	</select>
-	
+
 	<select id="selectNoticeById">
 		SELECT * FROM notices WHERE notice_id = #{noticeId}
 	</select>
-	
+
 	<insert id="insert" parameterType="Notice">
-		INSERT INTO notices(notice_title, event_id, notice_detail, notice_date, last_update)
-		VALUES (#{noticeTitle}, #{eventId}, #{noticeDetail}, #{noticeDate}, #{lastUpdate})	
+		INSERT INTO
+		notices(notice_title, event_id, notice_detail, notice_date,
+		last_update)
+		VALUES (#{noticeTitle}, #{eventId}, #{noticeDetail},
+		#{noticeDate}, #{lastUpdate})
 	</insert>
-	
+
 	<update id="update" parameterType="Notice">
 		UPDATE notices
-		SET notice_title = #{noticeTitle},
-			event_id = #{eventId},
-			notice_target = #{noticeDetail},
-			notice_detail = #{noticeDetail},
-			notice_date = #{noticeDate},
-			last_update = #{lastUpdate}
-		WHERE notice_id = #{noticeId}	
+		SET notice_title
+		= #{noticeTitle},
+		event_id = #{eventId},
+		notice_target = #{noticeDetail},
+		notice_detail = #{noticeDetail},
+		notice_date = #{noticeDate},
+		last_update = #{lastUpdate}
+		WHERE notice_id = #{noticeId}
 	</update>
-	
+
 	<delete id="delete" parameterType="int">
-		DELETE FROM notices WHERE notice_id = #{noticeId}	
+		DELETE FROM notices WHERE
+		notice_id = #{noticeId}
 	</delete>
 	
 </mapper>

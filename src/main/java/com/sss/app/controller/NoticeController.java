@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sss.app.domain.Notice;
 import com.sss.app.service.NoticeService;
+import com.sss.app.service.UtilService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class NoticeController {
 
 	private final NoticeService service;
+	private final UtilService utilService;
 
 	//1.お知らせ一覧の表示
 	@GetMapping
@@ -44,6 +46,7 @@ public class NoticeController {
 	@GetMapping("/addNotice")
 	public String addNoticeGet(Model model) throws Exception {
 		model.addAttribute("notice", new Notice());
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
 		return "notices/addNotice";
 	}
 
@@ -69,14 +72,14 @@ public class NoticeController {
 	@PostMapping("/addNotice")
 	public String backToAddNotice(
 			@ModelAttribute("notice") Notice notice,
-			Model model) throws Exception{
+			Model model) throws Exception {
 		model.addAttribute("notice", notice);
 		return "notices/addNotice";
 	}
-	
+
 	//3-4.確認画面→追加実行
 	@PostMapping("/addNoticeDone")
-	public String addNoticePost(Notice notice,Model model) throws Exception{
+	public String addNoticePost(Notice notice, Model model) throws Exception {
 		model.addAttribute("notice", notice);
 		service.addNotice(notice);
 		return "notice/addNoticeDone";
@@ -85,7 +88,7 @@ public class NoticeController {
 	//4.お知らせの編集
 	//4-1.編集画面遷移
 	@GetMapping("/editNotice/{id}")
-	public String editNoticeGet(@PathVariable Integer id, Model model) throws Exception{
+	public String editNoticeGet(@PathVariable Integer id, Model model) throws Exception {
 		model.addAttribute("notice", service.getNoticeById(id));
 		return "/notices/editNotice";
 	}
@@ -96,24 +99,24 @@ public class NoticeController {
 			@PathVariable Integer id,
 			@Valid @ModelAttribute("notice") Notice notice,
 			Errors errors,
-			Model model) throws Exception{
+			Model model) throws Exception {
 		//4-2-1.エラーあり→フォーム再表示
-		if(errors.hasErrors()) {
+		if (errors.hasErrors()) {
 			return "/editNotice";
 		}
-		
+
 		//4-2-2.エラーなし→確認画面へ
 		LocalDateTime currentDate = LocalDateTime.now();
 		notice.setLastUpdate(currentDate);
 		model.addAttribute("notice", notice);
-		return "/notices/editNoriceConf";		
+		return "/notices/editNoriceConf";
 	}
 
 	//4-3.確認画面→入力画面に戻る(修正)
 	@PostMapping("/editNotice/{id}")
 	public String backToEditNotice(
 			@ModelAttribute("notice") Notice notice,
-			Model model) throws Exception{
+			Model model) throws Exception {
 		model.addAttribute("notice", notice);
 		return "notices/editNorice";
 	}
@@ -122,7 +125,7 @@ public class NoticeController {
 	@PostMapping("/editNoticeDone")
 	public String editNoticePost(
 			Notice notice,
-			Model model) throws Exception{
+			Model model) throws Exception {
 		model.addAttribute("notice", notice);
 		service.editNotice(notice);
 		return "notices/editNoticeDone";

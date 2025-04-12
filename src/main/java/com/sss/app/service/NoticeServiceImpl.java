@@ -34,7 +34,7 @@ public class NoticeServiceImpl implements NoticeService {
 			// 2. 上記以外でlastUpdateが今日から7日以内ならNEWを格納
 			else if (Duration.between(notice.getLastUpdate(), now).toDays() >= 0 &&
 					Duration.between(notice.getLastUpdate(), now).toDays() <= 7) {
-				notice.setUpdateStatus("!NEW!");
+				notice.setUpdateStatus("NEW");
 			}
 		}
 		return notices;
@@ -56,7 +56,7 @@ public class NoticeServiceImpl implements NoticeService {
 			// 2. 上記以外でlastUpdateが今日から7日以内ならNEWを格納
 			else if (Duration.between(notice.getLastUpdate(), now).toDays() >= 0 &&
 					Duration.between(notice.getLastUpdate(), now).toDays() <= 7) {
-				notice.setUpdateStatus("!NEW!");
+				notice.setUpdateStatus("NEW");
 			}
 		}
 		return notices;
@@ -81,5 +81,6 @@ public class NoticeServiceImpl implements NoticeService {
 	public void deleteNotice(Integer noticeId) throws Exception {
 		noticeMapper.delete(noticeId);
 	}
-
+	
+	
 }

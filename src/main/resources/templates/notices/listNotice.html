@@ -56,34 +56,23 @@
 
 		</div>
 	</header>
-	<main class="main-contents">
-		<table class="table table-hover listnotice-table">
-			<thead>
-				<tr>
-					<th>ステータス</th>
-					<th class="listnotice-table-date">最終更新日</th>
-					<th class="listnotice-table-date">通知日</th>
-					<th class="listnotice-tabel-title">タイトル</th>
-					<th class="listnotice-tabel-detail">詳細</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="notice : ${notices}">
-					<td class="status">[[${notice.updateStatus}]]</td>
-					<td>
-						<span>[[${#temporals.format(notice.lastUpdate,'MM月dd日')}]]</span><br>
-						<span>[[${#temporals.format(notice.lastUpdate,'HH:mm')}]]</span>
-					</td>
-					<td>
-						<span>[[${#temporals.format(notice.NoticeDate,'MM月dd日')}]]</span><br>
-						<span>[[${#temporals.format(notice.NoticeDate,'HH:mm')}]]</span>
-					</td>
-					<td>[[${notice.noticeTitle}]]</td>
-					<td class="notice-detail">[[${notice.noticeDetail}]]</td>
-				</tr>
-			</tbody>
-		</table>
+	<main class="container mt-4">
+		<div class="row">
+			<div class="col-md-3 mb-4" th:each="notice : ${notices}">
+				<div class="card h-100">
+					<img src="images/2.jpg" class="card-img-top" alt="学年カラー画像">
+					<div class="card-body">
+						<p>[[${#temporals.format(notice.lastUpdate,'yyyy.MM.dd')}]] [[${notice.updateStatus}]]</p>
+						<h5 class="card-title">[[${notice.noticeTitle}]]</h5>
+						<p class="card-text">[[${notice.noticeDetail}]]</p>
+						<a th:href="@{'/notices/detailNotice/{id}(id=${notice.noticeId})}" ><i class="bi bi-chevron-double-right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
+
+
 
 </body>
 

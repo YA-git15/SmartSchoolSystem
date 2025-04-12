@@ -12,6 +12,6 @@ public interface NoticeService {
 	void addNotice(Notice notice) throws Exception;
 	void editNotice(Notice notice) throws Exception;
 	void deleteNotice(Integer noticeId) throws Exception;
-
+	
 
 }
