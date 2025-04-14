@@ -54,19 +54,31 @@
 				</div>
 
 				<div class="form-row-a">
-					<label for="noticeTitle">対象</label>
-					<select name="dropdownValues">
+					<label for="noticeTarget">対象</label>
+					<select id="noticeTarget" th:field="*{noticeTarget}">
 						<th:block th:each="dropdownValue : ${dropdownValues}">
 							<option th:value="${dropdownValue}" th:text="${dropdownValue}"></option>
 						</th:block>
 					</select>
 				</div>
 
-				<div class="form-row-a">
-					<label for="noticeDetail">内容</label>
-					<div id="editor">
+				<div>
+					<label for="eventDropdown">関連行事</label>
+					<select id="eventDropdown" name="eventId" th:value="*{eventId}">
+						<option value="">対象行事なし</option>
+						<option th:each="event : ${dropdownTitles}" th:text="${event.formattedTitle}"
+							th:value="${event.eventId}" th:selected="${event.eventId} == *{eventId}">
+						</option>						
+					</select>
 
-					</div>
+					<input type="hidden" id="formattedTitle" name="formattedTitle" th:value="*{formattedTitle}">
+				</div>
+
+				<div class="form-row-a">
+
+					<label for="noticeDetail">内容</label>
+
+					<div id="editor"></div>
 
 					<textarea id="noticeDetail" name="noticeDetail" th:field="*{noticeDetail}"
 						style="display: none;"></textarea>
@@ -109,12 +121,23 @@
 			placeholder: ''
 		});
 
+		const existingContent = document.querySelector('#noticeDetail').value;
+		if (existingContent) {
+			quill.root.innerHTML = existingContent;
+		}
+
+
 		const form = document.querySelector('form');
 		form.onsubmit = function () {
 			// Get the Quill editor content and set it to the textarea
 			const noticeDetail = document.querySelector('#noticeDetail');
 			noticeDetail.value = quill.root.innerHTML;  // Quill editor's HTML content
 		};
+
+		document.getElementById('eventDropdown').addEventListener('change', function () {
+			const selectedOption = this.options[this.selectedIndex];
+			document.getElementById('formattedTitle').value = selectedOption.text;
+		});
 	</script>
 
 </body>

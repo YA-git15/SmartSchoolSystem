@@ -7,7 +7,8 @@ import com.sss.app.domain.Inquery;
 public interface InqueryMapper {
 	
 	List<Inquery> selectInqueries() throws Exception;
-	Inquery selectInqueryById(Integer inqueryId) throws Exception;
+	List<Inquery> selectInqueriesByEventId() throws Exception;
+	List<Inquery> selectInqueriesByNoticeId() throws Exception;
 	void insert(Inquery inquery) throws Exception;
 	void update(Inquery inquery) throws Exception;
 	void delete(Integer inqueryId) throws Exception;

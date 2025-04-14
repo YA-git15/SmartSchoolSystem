@@ -16,9 +16,9 @@ public class Notice {
 	private String noticeTitle;
 
 	private Integer eventId;
+	
+	private String formattedTitle;
 
-	@NotBlank
-	@Size(max = 300)
 	private String noticeDetail;
 
 	private LocalDateTime noticeDate;
@@ -28,5 +28,7 @@ public class Notice {
 	private String updateStatus;
 	
 	private String noticeTarget;
+	
+	private String targetColor;
 
 }

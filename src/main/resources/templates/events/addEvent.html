@@ -64,15 +64,20 @@
 				<div class="form-row">
 					<label for="eventPlace">場所</label>
 					<input type="text" id="eventPlace" th:field="*{eventPlace}">
-					<label for="eventTarget">対象</label>
-					<input type="text" id="eventTarget" th:field="*{eventTarget}">
+					<label for="eventTarget">対象者</label>
+					<select id="eventTarget" th:field="*{eventTarget}">
+						<th:block th:each="dropdownValue : ${dropdownValues}">
+							<option th:value="${dropdownValue}" th:text="${dropdownValue}"></option>
+						</th:block>
+					</select>
 					<span th:errors="*{eventTarget}" class="error-message"></span>
 				</div>
+
 
 				<div class="form-row-a">
 					<label for="eventDetail">内容</label>
 					<div id="editor">
-						
+
 					</div>
 
 					<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
@@ -97,7 +102,7 @@
 			[{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
 			[{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
 			[{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
-			
+
 			[{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
 			[{'header': [1, 2, 3, 4, 5, 6, false]}],
 
@@ -115,6 +120,11 @@
 			theme: 'snow',
 			placeholder: ''
 		});
+
+		const existingContent = document.querySelector('#eventDetail').value;
+		if (existingContent) {
+			quill.root.innerHTML = existingContent;
+		}
 
 		const form = document.querySelector('form');
 		form.onsubmit = function () {

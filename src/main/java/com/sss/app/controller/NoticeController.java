@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sss.app.domain.Notice;
 import com.sss.app.service.NoticeService;
@@ -25,6 +26,7 @@ public class NoticeController {
 
 	private final NoticeService service;
 	private final UtilService utilService;
+	
 
 	//1.お知らせ一覧の表示
 	@GetMapping
@@ -47,6 +49,7 @@ public class NoticeController {
 	public String addNoticeGet(Model model) throws Exception {
 		model.addAttribute("notice", new Notice());
 		model.addAttribute("dropdownValues", utilService.getTargetNames());
+		model.addAttribute("dropdownTitles", utilService.getEventTitles());
 		return "notices/addNotice";
 	}
 
@@ -55,16 +58,23 @@ public class NoticeController {
 	public String addNoticeConf(
 			@Valid @ModelAttribute("notice") Notice notice,
 			Errors errors,
+			@RequestParam("formattedTitle") String formattedTitle,
+			@RequestParam("eventId") Integer eventId,
 			Model model) throws Exception {
 		//3-2-1.エラーあり→フォーム再表示
-		if (errors.hasErrors()) {
+		if (errors.hasErrors()) {			
+			model.addAttribute("dropdownValues", utilService.getTargetNames());
+			model.addAttribute("dropdownTitles", utilService.getEventTitles());
 			return "notices/addNotice";
 		}
 		//3-2-2.エラーなし→確認画面へ
+		notice.setFormattedTitle(formattedTitle);
+		notice.setEventId(eventId);  
 		LocalDateTime currentDate = LocalDateTime.now();
 		notice.setNoticeDate(currentDate);
-		notice.setLastUpdate(currentDate);
+		notice.setLastUpdate(currentDate);		
 		model.addAttribute("notice", notice);
+
 		return "notices/addNoticeConf";
 	}
 
@@ -74,6 +84,8 @@ public class NoticeController {
 			@ModelAttribute("notice") Notice notice,
 			Model model) throws Exception {
 		model.addAttribute("notice", notice);
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
+		model.addAttribute("dropdownTitles", utilService.getEventTitles());
 		return "notices/addNotice";
 	}
 
@@ -82,7 +94,7 @@ public class NoticeController {
 	public String addNoticePost(Notice notice, Model model) throws Exception {
 		model.addAttribute("notice", notice);
 		service.addNotice(notice);
-		return "notice/addNoticeDone";
+		return "notices/addNoticeDone";
 	}
 
 	//4.お知らせの編集
@@ -118,6 +130,7 @@ public class NoticeController {
 			@ModelAttribute("notice") Notice notice,
 			Model model) throws Exception {
 		model.addAttribute("notice", notice);
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
 		return "notices/editNorice";
 	}
 

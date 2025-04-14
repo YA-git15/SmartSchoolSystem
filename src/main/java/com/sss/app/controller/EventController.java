@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sss.app.domain.Event;
 import com.sss.app.service.EventService;
+import com.sss.app.service.UtilService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class EventController {
 
 	private final EventService service;
+	private final UtilService utilService;
 
 	//	//行事一覧をカレンダーに表示
 	//	@GetMapping
@@ -102,6 +104,7 @@ public class EventController {
 		event.setEventStartDatetime(LocalDateTime.of(today, LocalTime.MIDNIGHT));
 		event.setEventEndDatetime(LocalDateTime.of(today, LocalTime.MIDNIGHT));
 		model.addAttribute("event", event);
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
 		return "events/addEvent";
 	}
 
@@ -113,6 +116,7 @@ public class EventController {
 			Model model) throws Exception {
 		//エラーあり→フォーム再表示
 		if (errors.hasErrors()) {
+			model.addAttribute("dropdownValues", utilService.getTargetNames());
 			return "events/addEvent";
 		}
 
@@ -128,6 +132,7 @@ public class EventController {
 			@ModelAttribute("event") Event event,
 			Model model) throws Exception {
 		model.addAttribute("event", event);
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
 		return "/events/addEvent";
 	}
 
@@ -172,6 +177,7 @@ public class EventController {
 			@ModelAttribute("event") Event event,
 			Model model) throws Exception {
 		model.addAttribute("event", event);
+		model.addAttribute("dropdownValues", utilService.getTargetNames());
 		return "/events/editEvent";
 	}
 
@@ -184,16 +190,16 @@ public class EventController {
 		service.editEvent(event);
 		return "events/editEventDone";
 	}
-	
+
 	//確認画面→追加実行
-		@GetMapping("/editEventDone")
-		public String editEventGet(
-				Event event,
-				Model model) throws Exception {
-			model.addAttribute("event", event);
-			service.editEvent(event);
-			return "events/editEventDone";
-		}
+	@GetMapping("/editEventDone")
+	public String editEventGet(
+			Event event,
+			Model model) throws Exception {
+		model.addAttribute("event", event);
+		service.editEvent(event);
+		return "events/editEventDone";
+	}
 
 	//行事の削除
 	//削除対象確認

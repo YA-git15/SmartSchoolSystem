@@ -25,19 +25,24 @@
 		
 		<p>行事名: [[${notice.noticeTitle}]]</p>
 		<p>対象: [[${notice.noticeTarget}]]</p>
-		<p>内容:
+		<p>関連行事: [[${notice.formattedTitle}]]</p>
+		<p>ID:[[${notice.eventId}]]</p>
 		<div class="form-row-a">
 			<label for="noticeDetail">内容</label>
 			<!-- Quillエディタの内容をそのまま表示 -->
 			<div id="noticeDetailPreview" th:utext="${notice.noticeDetail}"></div>
 		</div>
 		</p>
+		
 
 		<!-- 確認画面から修正画面に戻るためのフォーム -->
 		<form th:action="@{/notices/addNotice}" method="post" th:object="${notice}">
 			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
 			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+			<input type="hidden" name="eventId" th:value="*{eventId}">
 			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+			<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
+			<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
 			<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
 		</form>
 
@@ -45,7 +50,10 @@
 		<form th:action="@{/notices/addNoticeDone}" method="post" th:object="${notice}">
 			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
 			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+			<input type="hidden" name="eventId" th:value="*{eventId}">
 			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+			<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
+			<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
 			<button type="submit" class="btn btn-outline-success">新規行事を保存</button>
 		</form>
 	</main>

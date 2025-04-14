@@ -2,13 +2,21 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<title>問い合わせ一覧</title>
 </head>
 
@@ -42,55 +50,69 @@
 					<h1 class="page-title">Inquery</h1>
 				</div>
 			</div>
+
 		</div>
+
 	</header>
+	<main>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-6">
+					<div class="row">
+						<div class="col-12">お知らせへの問い合わせ</div>
+						<div class="col-12">
+							<div class="accordion" id="accordionNotice">
+								<div class="accordion-item" th:each="noticeInquery, stat :  ${noticeInqueries}">
+									<h2 class="accordion-header" th:id="'heading' + ${stat.index}">
+										<button class="accordion-button" type="button" data-bs-toggle="collapse"
+											th:attr="data-bs-target='#collapse' + ${stat.index}" aria-expanded="false"
+											th:attrappend="aria-controls='collapse' + ${stat.index}">
+											[[${noticeInquery.inqueryTitle}]]
+										</button>
+									</h2>
+									<div class="accordion-collapse collapse" th:id="'collapse' + ${stat.index}"
+										th:attrappend="aria-labelledby='heading' + ${stat.index}"
+										data-bs-parent="#accordionNotice">
+										<div class="accordion-body">
+											[[${noticeInquery.inqueryDetail}]]
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-	<main class="main-contents">
-		<p><a th:href="@{/inqueries/addInquery}">問い合わせの追加</a></p>
-		
-		
-		<table class="table table-hover listnotice-table">
-			<thead>
-				<tr>
-					<th class="listnotice-table-date">問い合わせ名</th>
-					<th class="listnotice-table-date">詳細</th>
-					<th class="listnotice-tabel-title">回答</th>
-					<th colspan="3" class="listnotice-tabel-operation">操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="inquery : ${inqueries}">
-					<td></td>
-					<td>
-						<span>[[${#temporals.format(notice.NoticeDate,'MM月dd日')}]]</span><br>
-						<span>[[${#temporals.format(notice.NoticeDate,'HH:mm')}]]</span>
-					</td>
-					<td>[[${notice.noticeTitle}]]</td>
-					<td class="notice-detail">[[${notice.noticeDetail}]]</td>
-					<td><a class="btn btn-primary" th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">詳細</a>
-					</td>
-					<td><a class="btn btn-warning" th:href="@{/notices/editNotice/{id}(id=${notice.noticeId})}">編集</a>
-					</td>
-					<td><a class="btn btn-danger"
-							th:href="@{/notices/deleteNoticeConf/{id}(id=${notice.noticeId})}">削除</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		
 
-				<td>[[${inquery.inqueryDetail}]]</td>
-				<td>[[${inquery.answer}]]</td>
-				<td>[[${inquery.status}]]</td>
-				<td>[[${#temporals.format(inquery.inqueryDate,'MM月dd日')}]]</td>
-				<td>[[${#temporals.format(inquery.answerDate,'MM月dd日')}]]</td>
-				<td><a th:href="@{/inqueries/detailInquery/{id}(id=${inquery.inqueryId})}">詳細</a></td>
-				<td><a th:href="@{/inqueries/editInquery/{id}(id=${inquery.inqueryId})}">編集</a></td>
-				<td><a th:href="@{/inqueries/deleteInqueryConf/{id}(id=${inquery.inqueryId})}">削除</a></td>
-			</tr>
-
-		</table>
+				<div class="col-6">
+					<div class="row">
+						<div class="col-12">行事への問い合わせ</div>
+						<div class="col-12">
+							<div class="accordion" id="accordionEvent">
+								<div class="accordion-item" th:each="eventInquery, stat :  ${eventInqueries}">
+									<h2 class="accordion-header" th:id="'heading' + ${stat.index}">
+										<button class="accordion-button" type="button" data-bs-toggle="collapse"
+											th:attr="data-bs-target='#collapse' + ${stat.index}" aria-expanded="false"
+											th:attrappend="aria-controls='collapse' + ${stat.index}">
+											[[${eventInquery.inqueryTitle}]]
+										</button>
+									</h2>
+									<div class="accordion-collapse collapse" th:id="'collapse' + ${stat.index}"
+										th:attrappend="aria-labelledby='heading' + ${stat.index}"
+										data-bs-parent="#accordionEvent">
+										<div class="accordion-body">
+											[[${eventInquery.inqueryDetail}]]
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	</main>
+
+
 
 </body>
 

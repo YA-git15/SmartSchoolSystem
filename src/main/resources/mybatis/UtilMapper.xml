@@ -4,9 +4,15 @@
 <mapper namespace="com.sss.app.mapper.UtilMapper">
 
 	<select id="fetchTargetNames" resultType="string">
-		SELECT target_name FROM target_types;
+		SELECT target_name FROM
+		target_types;
 	</select>
 
-
+	<select id="fetchEventTitles" resultType="map">
+		SELECT event_id,
+		event_start_datetime, event_title FROM events
+		ORDER BY
+		event_start_datetime ASC
+	</select>
 
 </mapper>

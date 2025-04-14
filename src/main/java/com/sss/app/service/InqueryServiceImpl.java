@@ -21,12 +21,17 @@ public class InqueryServiceImpl implements InqueryService {
 	public List<Inquery> getInqueryList() throws Exception{
 		return inqueryMapper.selectInqueries();
 	}
-
+	
 	@Override
-	public Inquery getInqueryById(Integer inqueryId) throws Exception{
-		return inqueryMapper.selectInqueryById(inqueryId);
+	public List<Inquery> filterInqueriesByEventId() throws Exception{
+		return inqueryMapper.selectInqueriesByEventId();
 	}
-
+	
+	@Override
+	public List<Inquery> filterInqueriesByNoticeId() throws Exception{
+		return inqueryMapper.selectInqueriesByNoticeId();
+	}
+	
 	@Override
 	public void addInquery(Inquery inquery) throws Exception{
 		inqueryMapper.insert(inquery);

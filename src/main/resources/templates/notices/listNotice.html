@@ -55,17 +55,22 @@
 			</div>
 
 		</div>
+
 	</header>
 	<main class="container mt-4">
 		<div class="row">
 			<div class="col-md-3 mb-4" th:each="notice : ${notices}">
 				<div class="card h-100">
-					<img src="images/2.jpg" class="card-img-top" alt="学年カラー画像">
+					<div class="card-img-overlay">
+						<p th:text="${notice.noticeTarget}" class="text-white"></p>
+					</div>
+					<img th:src="@{'/images/' + ${notice.targetColor}}" alt="学年カラー画像" class="card-img-top" />
 					<div class="card-body">
 						<p>[[${#temporals.format(notice.lastUpdate,'yyyy.MM.dd')}]] [[${notice.updateStatus}]]</p>
 						<h5 class="card-title">[[${notice.noticeTitle}]]</h5>
-						<p class="card-text">[[${notice.noticeDetail}]]</p>
-						<a th:href="@{'/notices/detailNotice/{id}(id=${notice.noticeId})}" ><i class="bi bi-chevron-double-right"></i></a>
+						<p th:text="${#strings.abbreviate(notice.noticeDetail, 30)}"></p>
+						<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">Link<i
+								class="bi bi-chevron-double-right"></i></a>
 					</div>
 				</div>
 			</div>

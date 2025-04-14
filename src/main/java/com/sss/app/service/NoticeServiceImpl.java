@@ -36,8 +36,19 @@ public class NoticeServiceImpl implements NoticeService {
 					Duration.between(notice.getLastUpdate(), now).toDays() <= 7) {
 				notice.setUpdateStatus("NEW");
 			}
+			// HTMLタグ除去 + 文字列省略処理
+			String processedDetail = formatNoticeDetail(notice.getNoticeDetail(), 30);
+			notice.setNoticeDetail(processedDetail); // 加工した結果をセット
 		}
 		return notices;
+
+	}
+
+	private String formatNoticeDetail(String input, int maxLength) {
+		String strippedText = input.replaceAll("<[^>]*>", ""); // HTMLタグを除去
+		return strippedText.length() > maxLength
+				? strippedText.substring(0, maxLength) + "..."
+				: strippedText; // 文字列省略処理
 	}
 
 	@Override
@@ -81,6 +92,5 @@ public class NoticeServiceImpl implements NoticeService {
 	public void deleteNotice(Integer noticeId) throws Exception {
 		noticeMapper.delete(noticeId);
 	}
-	
-	
+
 }

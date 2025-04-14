@@ -6,26 +6,40 @@
 	<select id="selectInqueries" resultType="Inquery">
 		SELECT * FROM inqueries
 	</select>
-	
-	<select id="selectInqueryById">
-		SELECT * FROM inqueries WHERE inquery_id = #{inqueryId}
+
+	<select id="selectInqueryByEventId" resultType="Inquery">
+		SELECT * FROM
+		inqueries WHERE event_id IS NOT NULL
+		ORDER BY inquery_date DESC
 	</select>
-	
+
+	<select id="selectInqueryByNoticeId" resultType="Inquery">
+		SELECT * FROM
+		inqueries WHERE notice_id IS NOT NULL
+		ORDER BY inquery_date DESC
+	</select>
+
+
 	<insert id="insert" parameterType="Inquery">
-		INSERT INTO inqueries(inquery_detail, answer, status, inquery_date)
-		VALUES (#{inqueryDetail}, #{answer}, #{status}, #{inqueryDate})	
+		INSERT INTO
+		inqueries(inquery_detail, answer, status, inquery_date)
+		VALUES
+		(#{inqueryDetail}, #{answer}, #{status}, #{inqueryDate})
 	</insert>
-	
+
 	<update id="update" parameterType="Inquery">
 		UPDATE inqueries
-		SET answer = #{answer},
-			status = #{status},
-			answer_date = #{answerDate}
-		WHERE inquery_id = #{inqueryId}	
+		SET answer =
+		#{answer},
+		status = #{status},
+		answer_date = #{answerDate}
+		WHERE
+		inquery_id = #{inqueryId}
 	</update>
-	
+
 	<delete id="delete" parameterType="int">
-		DELETE FROM inqueries WHERE inquery_id = #{inqueryId}	
+		DELETE FROM inqueries WHERE
+		inquery_id = #{inqueryId}
 	</delete>
-	
+
 </mapper>

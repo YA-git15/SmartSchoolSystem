@@ -1,6 +1,6 @@
 package com.sss.app.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -10,6 +10,8 @@ public class Inquery {
 	
 	private Integer inqueryId;
 	
+	private String inqueryTitle;
+	
 	@NotBlank
 	private String inqueryDetail;
 	
@@ -18,11 +20,11 @@ public class Inquery {
 	@NotBlank
 	private String status;
 	
-	private LocalDate inqueryDate;
+	private LocalDateTime inqueryDate;
 	
-	private LocalDate answerDate;
+	private LocalDateTime answerDate;
 	
-	private Integer notriceId;
+	private Integer noticeId;
 	
 	private Integer eventId;
 

@@ -4,8 +4,17 @@
 <mapper namespace="com.sss.app.mapper.NoticeMapper">
 
 	<select id="selectNotices" resultType="Notice">
-		SELECT * FROM notices
-		ORDER BY last_update DESC
+		SELECT
+		n.notice_id, n.notice_title, n.event_id, n.notice_detail,
+		n.notice_date, n.last_update, n.notice_target, t.target_color
+		FROM
+		notices n
+		LEFT JOIN
+		target_types t
+		ON
+		n.notice_target = t.target_name
+		ORDER BY
+		n.last_update DESC
 	</select>
 
 	<select id="selectLatestNotices" resultType="Notice">
@@ -22,9 +31,10 @@
 	<insert id="insert" parameterType="Notice">
 		INSERT INTO
 		notices(notice_title, event_id, notice_detail, notice_date,
-		last_update)
-		VALUES (#{noticeTitle}, #{eventId}, #{noticeDetail},
-		#{noticeDate}, #{lastUpdate})
+		last_update, notice_target)
+		VALUES (#{noticeTitle}, #{eventId},
+		#{noticeDetail},
+		#{noticeDate}, #{lastUpdate}, #{noticeTarget})
 	</insert>
 
 	<update id="update" parameterType="Notice">
@@ -32,10 +42,14 @@
 		SET notice_title
 		= #{noticeTitle},
 		event_id = #{eventId},
-		notice_target = #{noticeDetail},
+		notice_target =
+		#{noticeDetail},
 		notice_detail = #{noticeDetail},
-		notice_date = #{noticeDate},
-		last_update = #{lastUpdate}
+		notice_date =
+		#{noticeDate},
+		last_update = #{lastUpdate},
+		notice_target =
+		#{noticeTarget}
 		WHERE notice_id = #{noticeId}
 	</update>
 
@@ -43,5 +57,5 @@
 		DELETE FROM notices WHERE
 		notice_id = #{noticeId}
 	</delete>
-	
+
 </mapper>

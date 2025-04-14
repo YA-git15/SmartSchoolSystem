@@ -22,21 +22,15 @@ public class InqueryController {
 
 	private final InqueryService service;
 
-	//1.問い合わせ一覧の表示
+	//1-1.お知らせに対する問い合わせ一覧の表示
 	@GetMapping
-	public String list(Model model) throws Exception {
-		model.addAttribute("inqueries", service.getInqueryList());
+	public String noticeInqueryAndEventList(Model model) throws Exception {
+		model.addAttribute("noticeInqueries", service.filterInqueriesByNoticeId());
+		model.addAttribute("eventInqueries", service.filterInqueriesByEventId());
 		return "inqueries/listInquery";
 	}
-
-	//2.問い合わせ詳細の表示
-	@GetMapping("/detailInquery/{id}")
-	public String detail(@PathVariable Integer id, Model model)
-			throws Exception {
-		model.addAttribute("inquery", service.getInqueryById(id));
-		return "inqueries/detailInquery";
-	}
-
+	
+	
 	//3.問い合わせの新規作成
 	//3-1.新規作成画面遷移
 	@GetMapping("/addInquery")
@@ -80,12 +74,12 @@ public class InqueryController {
 
 	//4.問い合わせの編集
 	//4-1.編集画面遷移
-	@GetMapping("/editInquery/{id}")
-	public String editInqueryGet(@PathVariable Integer id, Model model) throws Exception {
-		model.addAttribute("inquery", service.getInqueryById(id));
-		return "inqueries/addInquery";
-
-	}
+//	@GetMapping("/editInquery/{id}")
+//	public String editInqueryGet(@PathVariable Integer id, Model model) throws Exception {
+//		model.addAttribute("inquery", service.getInqueryById(id));
+//		return "inqueries/addInquery";
+//
+//	}
 
 	//4-2.編集内容入力
 	@PostMapping("/editInqueryConf/{id}")
@@ -126,12 +120,12 @@ public class InqueryController {
 
 	//5.問い合わせの削除	
 	//5-1.削除対象確認
-	@GetMapping("/deleteInqueryConf/{id}")
-	public String deleteInqueryConf(@PathVariable Integer id, Model model)
-			throws Exception {
-		model.addAttribute("inquery", service.getInqueryById(id));
-		return "inqueries/deleteInqueryConf";
-	}
+//	@GetMapping("/deleteInqueryConf/{id}")
+//	public String deleteInqueryConf(@PathVariable Integer id, Model model)
+//			throws Exception {
+//		model.addAttribute("inquery", service.getInqueryById(id));
+//		return "inqueries/deleteInqueryConf";
+//	}
 
 	//5-2.削除実行
 	@PostMapping("/deleteInqueryDone/{id}")

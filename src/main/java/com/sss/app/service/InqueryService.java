@@ -7,13 +7,16 @@ import com.sss.app.domain.Inquery;
 public interface InqueryService {
 
 	List<Inquery> getInqueryList() throws Exception;
+	
+	List<Inquery> filterInqueriesByEventId() throws Exception;
 
-	Inquery getInqueryById(Integer inqueryId) throws Exception;
+	List<Inquery> filterInqueriesByNoticeId() throws Exception;
 
 	void addInquery(Inquery inquery) throws Exception;
 
 	void editInquery(Inquery inquery) throws Exception;
 
 	void deleteInquery(Integer inqueryId) throws Exception;
+
 
 }
