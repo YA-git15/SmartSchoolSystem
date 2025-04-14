@@ -63,15 +63,16 @@
 						<div class="col-12">
 							<div class="accordion" id="accordionNotice">
 								<div class="accordion-item" th:each="noticeInquery, stat :  ${noticeInqueries}">
-									<h2 class="accordion-header" th:id="'heading' + ${stat.index}">
+									<h2 class="accordion-header" th:id="'headingNotice' + ${stat.index}">
 										<button class="accordion-button" type="button" data-bs-toggle="collapse"
-											th:attr="data-bs-target='#collapse' + ${stat.index}" aria-expanded="false"
-											th:attrappend="aria-controls='collapse' + ${stat.index}">
+											th:attr="data-bs-target='#collapseNotice' + ${stat.index}"
+											aria-expanded="false"
+											th:attrappend="aria-controls='collapseNotice' + ${stat.index}">
 											[[${noticeInquery.inqueryTitle}]]
 										</button>
 									</h2>
-									<div class="accordion-collapse collapse" th:id="'collapse' + ${stat.index}"
-										th:attrappend="aria-labelledby='heading' + ${stat.index}"
+									<div class="accordion-collapse collapse" th:id="'collapseNotice' + ${stat.index}"
+										th:attrappend="aria-labelledby='headingNotice' + ${stat.index}"
 										data-bs-parent="#accordionNotice">
 										<div class="accordion-body">
 											[[${noticeInquery.inqueryDetail}]]
@@ -90,15 +91,16 @@
 						<div class="col-12">
 							<div class="accordion" id="accordionEvent">
 								<div class="accordion-item" th:each="eventInquery, stat :  ${eventInqueries}">
-									<h2 class="accordion-header" th:id="'heading' + ${stat.index}">
+									<h2 class="accordion-header" th:id="'headingEvent' + ${stat.index}">
 										<button class="accordion-button" type="button" data-bs-toggle="collapse"
-											th:attr="data-bs-target='#collapse' + ${stat.index}" aria-expanded="false"
-											th:attrappend="aria-controls='collapse' + ${stat.index}">
+											th:attr="data-bs-target='#collapseEvent' + ${stat.index}"
+											aria-expanded="false"
+											th:attrappend="aria-controls='collapseEvent' + ${stat.index}">
 											[[${eventInquery.inqueryTitle}]]
 										</button>
 									</h2>
-									<div class="accordion-collapse collapse" th:id="'collapse' + ${stat.index}"
-										th:attrappend="aria-labelledby='heading' + ${stat.index}"
+									<div class="accordion-collapse collapse" th:id="'collapseEvent' + ${stat.index}"
+										th:attrappend="aria-labelledby='headingEvent' + ${stat.index}"
 										data-bs-parent="#accordionEvent">
 										<div class="accordion-body">
 											[[${eventInquery.inqueryDetail}]]

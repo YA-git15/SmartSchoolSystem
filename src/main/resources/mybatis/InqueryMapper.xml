@@ -7,13 +7,13 @@
 		SELECT * FROM inqueries
 	</select>
 
-	<select id="selectInqueryByEventId" resultType="Inquery">
+	<select id="selectInqueriesByEventId" resultType="Inquery">
 		SELECT * FROM
 		inqueries WHERE event_id IS NOT NULL
 		ORDER BY inquery_date DESC
 	</select>
 
-	<select id="selectInqueryByNoticeId" resultType="Inquery">
+	<select id="selectInqueriesByNoticeId" resultType="Inquery">
 		SELECT * FROM
 		inqueries WHERE notice_id IS NOT NULL
 		ORDER BY inquery_date DESC
