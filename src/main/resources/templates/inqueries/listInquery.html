@@ -89,28 +89,48 @@
 					<div class="row">
 						<div class="col-12">行事への問い合わせ</div>
 						<div class="col-12">
+							<!-- 🔵 外枠: 全体アコーディオン -->
 							<div class="accordion" id="accordionEvent">
-								<div class="accordion-item" th:each="eventInquery, stat :  ${eventInqueries}">
-									<h2 class="accordion-header" th:id="'headingEvent' + ${stat.index}">
+
+								<!-- 🟢 ループ①：イベントタイトルごと（グルーピング単位） -->
+								<div class="accordion-item" th:each="entry, stat : ${groupedEventInqueries}">
+
+									<!-- 🟠 アコーディオンヘッダー（イベントタイトル） -->
+									<h2 class="accordion-header" th:id="'headingEventGroup' + ${stat.index}">
 										<button class="accordion-button" type="button" data-bs-toggle="collapse"
-											th:attr="data-bs-target='#collapseEvent' + ${stat.index}"
+											th:attr="data-bs-target='#collapseEventGroup' + ${stat.index}"
 											aria-expanded="false"
-											th:attrappend="aria-controls='collapseEvent' + ${stat.index}">
-											[[${eventInquery.inqueryTitle}]]
+											th:attrappend="aria-controls='collapseEventGroup' + ${stat.index}">
+											<!-- イベントタイトル -->
+											[[${entry.key}]]
 										</button>
 									</h2>
-									<div class="accordion-collapse collapse" th:id="'collapseEvent' + ${stat.index}"
-										th:attrappend="aria-labelledby='headingEvent' + ${stat.index}"
+
+									<!-- 🟣 アコーディオンの中身 -->
+									<div class="accordion-collapse collapse"
+										th:id="'collapseEventGroup' + ${stat.index}"
+										th:attrappend="aria-labelledby='headingEventGroup' + ${stat.index}"
 										data-bs-parent="#accordionEvent">
 										<div class="accordion-body">
-											[[${eventInquery.inqueryDetail}]]
+
+											<!-- 🔴 ループ②：イベントごとの問い合わせ一覧 -->
+											<ul>
+												<li th:each="inquery : ${entry.value}">
+													<strong>[[${inquery.inqueryTitle}]]</strong><br>
+													[[${inquery.inqueryDetail}]]
+												</li>
+											</ul>
+
 										</div>
 									</div>
+
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 	</main>
 

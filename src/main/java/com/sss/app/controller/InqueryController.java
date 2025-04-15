@@ -1,5 +1,8 @@
 package com.sss.app.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,12 +28,34 @@ public class InqueryController {
 	//1-1.お知らせに対する問い合わせ一覧の表示
 	@GetMapping
 	public String noticeInqueryAndEventList(Model model) throws Exception {
-		model.addAttribute("noticeInqueries", service.filterInqueriesByNoticeId());
-		model.addAttribute("eventInqueries", service.filterInqueriesByEventId());
+		Map<String, List<Inquery>> groupedNoticeInqueries = service.groupedInqueriesByNoticeTitle();
+		Map<String, List<Inquery>> groupedEventInqueries = service.groupedInqueriesByEventTitle();
+		for (Map.Entry<String, List<Inquery>> entry : groupedNoticeInqueries.entrySet()) {
+			System.out.println("🔔 Notice Title: " + entry.getKey());
+			for (Inquery inq : entry.getValue()) {
+				System.out.println("    - ID: " + inq.getEventId() +
+						", Event ID: " + inq.getEventId() +
+						", Title: " + inq.getInqueryTitle() +
+						", Detail: " + inq.getInqueryDetail());
+			}
+		}
+
+		for (Map.Entry<String, List<Inquery>> entry : groupedEventInqueries.entrySet()) {
+			System.out.println("📅 Event Title: " + entry.getKey());
+			for (Inquery inq : entry.getValue()) {
+				System.out.println("    - ID: " + inq.getNoticeId() +
+						", Title: " + inq.getInqueryTitle() +
+						", Detail: " + inq.getInqueryDetail());
+			}
+		}
+
+		
+
+		//		model.addAttribute("groupedNoticeInqueries", groupedNoticeInqueries);
+		//		model.addAttribute("groupedEventInqueries", groupedEventInqueries);
 		return "inqueries/listInquery";
 	}
-	
-	
+
 	//3.問い合わせの新規作成
 	//3-1.新規作成画面遷移
 	@GetMapping("/addInquery")
@@ -74,12 +99,12 @@ public class InqueryController {
 
 	//4.問い合わせの編集
 	//4-1.編集画面遷移
-//	@GetMapping("/editInquery/{id}")
-//	public String editInqueryGet(@PathVariable Integer id, Model model) throws Exception {
-//		model.addAttribute("inquery", service.getInqueryById(id));
-//		return "inqueries/addInquery";
-//
-//	}
+	//	@GetMapping("/editInquery/{id}")
+	//	public String editInqueryGet(@PathVariable Integer id, Model model) throws Exception {
+	//		model.addAttribute("inquery", service.getInqueryById(id));
+	//		return "inqueries/addInquery";
+	//
+	//	}
 
 	//4-2.編集内容入力
 	@PostMapping("/editInqueryConf/{id}")
@@ -120,12 +145,12 @@ public class InqueryController {
 
 	//5.問い合わせの削除	
 	//5-1.削除対象確認
-//	@GetMapping("/deleteInqueryConf/{id}")
-//	public String deleteInqueryConf(@PathVariable Integer id, Model model)
-//			throws Exception {
-//		model.addAttribute("inquery", service.getInqueryById(id));
-//		return "inqueries/deleteInqueryConf";
-//	}
+	//	@GetMapping("/deleteInqueryConf/{id}")
+	//	public String deleteInqueryConf(@PathVariable Integer id, Model model)
+	//			throws Exception {
+	//		model.addAttribute("inquery", service.getInqueryById(id));
+	//		return "inqueries/deleteInqueryConf";
+	//	}
 
 	//5-2.削除実行
 	@PostMapping("/deleteInqueryDone/{id}")

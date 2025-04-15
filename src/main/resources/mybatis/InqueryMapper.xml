@@ -7,16 +7,36 @@
 		SELECT * FROM inqueries
 	</select>
 
-	<select id="selectInqueriesByEventId" resultType="Inquery">
-		SELECT * FROM
-		inqueries WHERE event_id IS NOT NULL
-		ORDER BY inquery_date DESC
+	<select id="selectInqueriesByEventId" resultType="com.sss.app.domain.Inquery">
+		SELECT
+		i.inquery_id,
+		i.inquery_detail,
+		i.answer,
+		i.status,
+		i.inquery_date,
+		i.answer_date,
+		i.event_id,
+		e.event_title AS event_title
+		FROM inqueries i
+		JOIN events e ON i.event_id = e.event_id
+		WHERE i.event_id IS NOT NULL
+		ORDER BY i.inquery_date DESC
 	</select>
 
-	<select id="selectInqueriesByNoticeId" resultType="Inquery">
-		SELECT * FROM
-		inqueries WHERE notice_id IS NOT NULL
-		ORDER BY inquery_date DESC
+	<select id="selectInqueriesByNoticeId" resultType="com.sss.app.domain.Inquery">
+		SELECT
+		i.inquery_id,
+		i.inquery_detail,
+		i.answer,
+		i.status,
+		i.inquery_date,
+		i.answer_date,
+		i.notice_id,		
+		e.notice_title AS notice_title
+		FROM inqueries i
+		JOIN notices e ON i.notice_id = e.notice_id
+		WHERE i.notice_id IS NOT NULL
+		ORDER BY i.inquery_date DESC
 	</select>
 
 

@@ -26,6 +26,9 @@ public class Inquery {
 	
 	private Integer noticeId;
 	
+	private String noticeTitle;
+	
 	private Integer eventId;
-
+	
+	private String eventTitle;
 }
