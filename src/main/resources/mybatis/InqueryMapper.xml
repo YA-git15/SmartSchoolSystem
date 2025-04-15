@@ -7,7 +7,28 @@
 		SELECT * FROM inqueries
 	</select>
 
-	<select id="selectInqueriesByEventId" resultType="com.sss.app.domain.Inquery">
+	<select id="selectInqueriesById" resultType="Inquery">
+		SELECT
+		i.inquery_id,
+		i.inquery_title,
+		i.inquery_detail,
+		i.answer,
+		i.status,
+		i.inquery_date,
+		i.answer_date,
+		COALESCE(e.event_title, '') AS event_title,
+		COALESCE(n.notice_title, '') AS notice_title
+		FROM
+		inqueries i
+		LEFT JOIN
+		events e ON i.event_id = e.event_id
+		LEFT JOIN
+		notices n ON i.notice_id = n.notice_id
+		WHERE inquery_id = #{inqueryId}
+	</select>
+
+	<select id="selectInqueriesByEventId"
+		resultType="com.sss.app.domain.Inquery">
 		SELECT
 		i.inquery_id,
 		i.inquery_title,
@@ -20,13 +41,16 @@
 		e.event_title,
 		e.event_start_datetime,
 		e.event_end_datetime
-		FROM inqueries i
+		FROM
+		inqueries i
 		JOIN events e ON i.event_id = e.event_id
-		WHERE i.event_id IS NOT NULL
+		WHERE i.event_id IS
+		NOT NULL
 		ORDER BY i.inquery_date DESC
 	</select>
 
-	<select id="selectInqueriesByNoticeId" resultType="com.sss.app.domain.Inquery">
+	<select id="selectInqueriesByNoticeId"
+		resultType="com.sss.app.domain.Inquery">
 		SELECT
 		i.inquery_id,
 		i.inquery_title,
@@ -35,13 +59,15 @@
 		i.status,
 		i.inquery_date,
 		i.answer_date,
-		i.notice_id,		
+		i.notice_id,
 		e.notice_title,
 		e.notice_date
 		FROM inqueries i
-		JOIN notices e ON i.notice_id = e.notice_id
+		JOIN notices e ON
+		i.notice_id = e.notice_id
 		WHERE i.notice_id IS NOT NULL
-		ORDER BY i.inquery_date DESC
+		ORDER BY
+		i.inquery_date DESC
 	</select>
 
 
@@ -54,7 +80,8 @@
 
 	<update id="update" parameterType="Inquery">
 		UPDATE inqueries
-		SET answer =
+		SET
+		answer =
 		#{answer},
 		status = #{status},
 		answer_date = #{answerDate}

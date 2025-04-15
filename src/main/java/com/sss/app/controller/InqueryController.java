@@ -1,5 +1,6 @@
 package com.sss.app.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sss.app.domain.Inquery;
 import com.sss.app.service.InqueryService;
@@ -138,5 +140,28 @@ public class InqueryController {
 		service.deleteInquery(id);
 		return "inqueries/deleteInqueryDone";
 	}
+	
+	//6-1.回答入力
+	@GetMapping("/addAnswer/{id}")
+	public String addAnswer(@PathVariable Integer id, Model model) throws Exception{
+		model.addAttribute("inquery", service.getInqueryListById(id));
+		return "inqueries/addAnswer";
+	}
+	
+	//6-2.回答内容確認
+	@PostMapping("/addAnswerConf/{id}")
+	public String addAnswerConf(
+			@Valid @ModelAttribute("inquery") Inquery inquery,
+			Errors errors,
+			@RequestParam("inqueryId") Integer inqueryId,
+			Model model) throws Exception {
+		
+		LocalDateTime currentDate = LocalDateTime.now();
+		inquery.setAnswerDate(currentDate);	
+		model.addAttribute("inquery", inquery);
+
+		return "inqueries/addAnswerConf";
+	}
+
 
 }
