@@ -2,35 +2,76 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>HOME</title>
+	<meta charset='utf-8' />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Web Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<title>お知らせ一覧</title>
 </head>
 
 <body>
+	<header class="container-fluid header">
+		<div class="row shcool-name-and-nav">
+			<div class="col-12 col-md-6 school-name">
+				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
+					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
+						style="width: 20%; margin-right: 10px;">
+					<h2 class="mb-0">横浜市立新横浜小学校</h2>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-6 nav-link">
+				<div class="row navs">
+					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
+					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
+					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
+					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="note-container">
+		<img src="/images/note.jpg" alt="ノート" class="note-image">
+
+		<div class="note-overlay"  th:object="${notice}">
+			<div class="note-left">
+				<h3>[[*{noticeTitle}]]</h5>
+				<p>【対 象】 [[*{noticeTarget}]]</p>
+				<p>【関連行事】 <a th:href="@{/events/detailEvent/{id} (id=*{eeventId})}">[[*{eventTitle}]]</a></p>
+				<p>【内 容】</p>
+				<p th:utext="*{noticeDetail}"></p>				
+			</div>
+			<div class="note-right">
+				
+			</div>
+		</div>
+	</div>
+
+
+	<h2>notice_title</h2>
+	<table>
+		<p>notice_date</p>
+		<p>update_date</p>
+		<p>notice_detail</p>
+		<p>event_name</p>
+		<p>event_date</p>
+		<p>file</p>
+		<p><a href="">この行事について問い合わせる</a></p>
+	</table>
+
 
 </body>
 
 </html>
-<h1>スマートスクールシステム</h1>
-<ul>
-	<li><a th:href="@{home}">HOME</a></li>
-	<li><a th:href="@{notice}">お知らせ</a></li>
-	<li><a th:href="@{event}">行事予定</a></li>
-	<li><a th:href="@{inquery}">問い合わせ</a></li>
-	<li><a th:href="@{logout}">ログアウト</a></li>
-</ul>
-<p>学校画像</p>
-
-<h2>notice_title</h2>
-<table>
-	<p>notice_date</p>
-	<p>update_date</p>
-	<p>notice_detail</p>
-	<p>event_name</p>
-	<p>event_date</p>
-	<p>file</p>
-	<p><a href="">この行事について問い合わせる</a></p>
-</table>
-
-<h2>問い合わせ一覧</h2>
-<p>対象行事に対する問い合わせ一覧表示</p>

@@ -30,5 +30,9 @@ public class Notice {
 	private String noticeTarget;
 	
 	private String targetColor;
+	
+	private Integer eeventId;
+	
+	private String eventTitle;
 
 }

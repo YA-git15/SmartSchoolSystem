@@ -10,13 +10,16 @@
 	<select id="selectInqueriesByEventId" resultType="com.sss.app.domain.Inquery">
 		SELECT
 		i.inquery_id,
+		i.inquery_title,
 		i.inquery_detail,
 		i.answer,
 		i.status,
 		i.inquery_date,
 		i.answer_date,
 		i.event_id,
-		e.event_title AS event_title
+		e.event_title,
+		e.event_start_datetime,
+		e.event_end_datetime
 		FROM inqueries i
 		JOIN events e ON i.event_id = e.event_id
 		WHERE i.event_id IS NOT NULL
@@ -26,13 +29,15 @@
 	<select id="selectInqueriesByNoticeId" resultType="com.sss.app.domain.Inquery">
 		SELECT
 		i.inquery_id,
+		i.inquery_title,
 		i.inquery_detail,
 		i.answer,
 		i.status,
 		i.inquery_date,
 		i.answer_date,
 		i.notice_id,		
-		e.notice_title AS notice_title
+		e.notice_title,
+		e.notice_date
 		FROM inqueries i
 		JOIN notices e ON i.notice_id = e.notice_id
 		WHERE i.notice_id IS NOT NULL

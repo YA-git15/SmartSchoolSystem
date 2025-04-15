@@ -59,27 +59,37 @@
 			<div class="row">
 				<div class="col-6">
 					<div class="row">
-						<div class="col-12">お知らせへの問い合わせ</div>
 						<div class="col-12">
-							<div class="accordion" id="accordionNotice">
-								<div class="accordion-item" th:each="noticeInquery, stat :  ${noticeInqueries}">
-									<h2 class="accordion-header" th:id="'headingNotice' + ${stat.index}">
-										<button class="accordion-button" type="button" data-bs-toggle="collapse"
-											th:attr="data-bs-target='#collapseNotice' + ${stat.index}"
-											aria-expanded="false"
-											th:attrappend="aria-controls='collapseNotice' + ${stat.index}">
-											[[${noticeInquery.inqueryTitle}]]
-										</button>
-									</h2>
-									<div class="accordion-collapse collapse" th:id="'collapseNotice' + ${stat.index}"
-										th:attrappend="aria-labelledby='headingNotice' + ${stat.index}"
-										data-bs-parent="#accordionNotice">
-										<div class="accordion-body">
-											[[${noticeInquery.inqueryDetail}]]
+							<p>行事Q&amp;A</p>
+						</div>
+						<div class="col-12">
+							<div th:each="entry, stat : ${groupedEventInqueries}">
+								<h6 th:text="${entry.key}"></h6>
+
+								<div class="accordion" th:id="'accordionEvent' + ${stat.index}">
+									<div th:each="inq : ${entry.value}" class="accordion-item">
+										<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
+												aria-expanded="false"
+												th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
+												<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
+											</button>
+										</h2>
+
+										<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
+											th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
+											th:attr="data-bs-parent='#accordionEvent' + ${stat.index}">
+											<div class="accordion-body">
+												<p><span th:text="${inq.inqueryDetail}"></span></p>
+												<p><strong>A.</strong> <span th:text="${inq.answer}"></span></p>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -87,43 +97,34 @@
 
 				<div class="col-6">
 					<div class="row">
-						<div class="col-12">行事への問い合わせ</div>
 						<div class="col-12">
-							<!-- 🔵 外枠: 全体アコーディオン -->
-							<div class="accordion" id="accordionEvent">
+							<p>お知らせQ&amp;A</p>
+						</div>
+						<div class="col-12">
+							<div th:each="entry, stat : ${groupedNoticeInqueries}">
+								<h6 th:text="${entry.key}"></h6>
 
-								<!-- 🟢 ループ①：イベントタイトルごと（グルーピング単位） -->
-								<div class="accordion-item" th:each="entry, stat : ${groupedEventInqueries}">
+								<div class="accordion" th:id="'accordionNotice' + ${stat.index}">
+									<div th:each="inq : ${entry.value}" class="accordion-item">
+										<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
+												aria-expanded="false"
+												th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
+												<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
+											</button>
+										</h2>
 
-									<!-- 🟠 アコーディオンヘッダー（イベントタイトル） -->
-									<h2 class="accordion-header" th:id="'headingEventGroup' + ${stat.index}">
-										<button class="accordion-button" type="button" data-bs-toggle="collapse"
-											th:attr="data-bs-target='#collapseEventGroup' + ${stat.index}"
-											aria-expanded="false"
-											th:attrappend="aria-controls='collapseEventGroup' + ${stat.index}">
-											<!-- イベントタイトル -->
-											[[${entry.key}]]
-										</button>
-									</h2>
-
-									<!-- 🟣 アコーディオンの中身 -->
-									<div class="accordion-collapse collapse"
-										th:id="'collapseEventGroup' + ${stat.index}"
-										th:attrappend="aria-labelledby='headingEventGroup' + ${stat.index}"
-										data-bs-parent="#accordionEvent">
-										<div class="accordion-body">
-
-											<!-- 🔴 ループ②：イベントごとの問い合わせ一覧 -->
-											<ul>
-												<li th:each="inquery : ${entry.value}">
-													<strong>[[${inquery.inqueryTitle}]]</strong><br>
-													[[${inquery.inqueryDetail}]]
-												</li>
-											</ul>
-
+										<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
+											th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
+											th:attr="data-bs-parent='#accordionNotice' + ${stat.index}">
+											<div class="accordion-body">
+												<p><span th:text="${inq.inqueryDetail}"></span></p>
+												<p><strong>A.</strong> <span th:text="${inq.answer}"></span></p>
+											</div>
 										</div>
 									</div>
-
 								</div>
 							</div>
 
@@ -131,7 +132,7 @@
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
 	</main>
 
 

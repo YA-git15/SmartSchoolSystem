@@ -5,8 +5,10 @@
 
 	<select id="selectNotices" resultType="Notice">
 		SELECT
-		n.notice_id, n.notice_title, n.event_id, n.notice_detail,
-		n.notice_date, n.last_update, n.notice_target, t.target_color
+		n.notice_id,
+		n.notice_title, n.event_id, n.notice_detail,
+		n.notice_date,
+		n.last_update, n.notice_target, t.target_color
 		FROM
 		notices n
 		LEFT JOIN
@@ -14,7 +16,8 @@
 		ON
 		n.notice_target = t.target_name
 		ORDER BY
-		n.last_update DESC
+		n.last_update
+		DESC
 	</select>
 
 	<select id="selectLatestNotices" resultType="Notice">
@@ -24,8 +27,20 @@
 		LIMIT 5
 	</select>
 
-	<select id="selectNoticeById">
-		SELECT * FROM notices WHERE notice_id = #{noticeId}
+	<select id="selectNoticeById" resultType="Notice">
+		SELECT
+		n.notice_id,
+		n.notice_title,
+		n.event_id,
+		n.notice_detail,
+		n.notice_date,
+		n.last_update,		
+		n.notice_target,			
+		e.event_id AS eevent_id,
+		e.event_title		
+		FROM notices n
+		LEFT JOIN events e ON n.event_id = e.event_id
+		WHERE n.notice_id = #{noticeId}
 	</select>
 
 	<insert id="insert" parameterType="Notice">

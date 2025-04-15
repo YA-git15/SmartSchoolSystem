@@ -16,52 +16,53 @@ import lombok.RequiredArgsConstructor;
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
 public class InqueryServiceImpl implements InqueryService {
-	
+
 	private final InqueryMapper inqueryMapper;
-	
+
 	@Override
-	public List<Inquery> getInqueryList() throws Exception{
+	public List<Inquery> getInqueryList() throws Exception {
 		return inqueryMapper.selectInqueries();
 	}
-	
+
 	@Override
-	public List<Inquery> filterInqueriesByNoticeId() throws Exception{
+	public List<Inquery> filterInqueriesByNoticeId() throws Exception {
 		return inqueryMapper.selectInqueriesByNoticeId();
 	}
-    
+
 	@Override
-	public List<Inquery> filterInqueriesByEventId() throws Exception{
+	public List<Inquery> filterInqueriesByEventId() throws Exception {
 		return inqueryMapper.selectInqueriesByEventId();
 	}
-	
+
 	@Override
-	public Map<String, List<Inquery>> groupedInqueriesByNoticeTitle() throws Exception{
-	    List<Inquery> inqueries = inqueryMapper.selectInqueriesByNoticeId(); // noticeIdで絞ったリスト
-	    return inqueries.stream()
-	        .collect(Collectors.groupingBy(Inquery::getNoticeTitle)); // または getNotice().getTitle() など
+	public Map<String, List<Inquery>> groupedInqueriesByNoticeTitle() throws Exception {
+		List<Inquery> inqueries = inqueryMapper.selectInqueriesByNoticeId(); // noticeIdで絞ったリスト
+		return inqueries.stream()
+				.collect(Collectors.groupingBy(
+						inq -> inq.getNoticeTitle() + " (通知日:" + inq.getFmtNoticeDate() + ")"));
 	}
-	
+
 	@Override
-	public Map<String, List<Inquery>> groupedInqueriesByEventTitle() throws Exception{
-	    List<Inquery> inqueries = inqueryMapper.selectInqueriesByEventId(); // eventIdで絞ったリスト
-	    return inqueries.stream()
-	        .collect(Collectors.groupingBy(Inquery::getEventTitle)); // または getEvent().getTitle()
+	public Map<String, List<Inquery>> groupedInqueriesByEventTitle() throws Exception {
+		List<Inquery> inqueries = inqueryMapper.selectInqueriesByEventId(); // eventIdで絞ったリスト
+		return inqueries.stream()
+				.collect(Collectors.groupingBy(
+						inq -> inq.getEventTitle() + "  (実施日:" + inq.getFmtEventDatePeriod() + ")"));
 	}
-	
+
 	@Override
-	public void addInquery(Inquery inquery) throws Exception{
+	public void addInquery(Inquery inquery) throws Exception {
 		inqueryMapper.insert(inquery);
 	}
 
 	@Override
-	public void editInquery(Inquery inquery) throws Exception{
+	public void editInquery(Inquery inquery) throws Exception {
 		inqueryMapper.update(inquery);
 	}
 
 	@Override
-	public void deleteInquery(Integer inqueryId) throws Exception{
+	public void deleteInquery(Integer inqueryId) throws Exception {
 		inqueryMapper.delete(inqueryId);
 	}
-
 
 }

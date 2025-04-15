@@ -30,29 +30,9 @@ public class InqueryController {
 	public String noticeInqueryAndEventList(Model model) throws Exception {
 		Map<String, List<Inquery>> groupedNoticeInqueries = service.groupedInqueriesByNoticeTitle();
 		Map<String, List<Inquery>> groupedEventInqueries = service.groupedInqueriesByEventTitle();
-		for (Map.Entry<String, List<Inquery>> entry : groupedNoticeInqueries.entrySet()) {
-			System.out.println("🔔 Notice Title: " + entry.getKey());
-			for (Inquery inq : entry.getValue()) {
-				System.out.println("    - ID: " + inq.getEventId() +
-						", Event ID: " + inq.getEventId() +
-						", Title: " + inq.getInqueryTitle() +
-						", Detail: " + inq.getInqueryDetail());
-			}
-		}
-
-		for (Map.Entry<String, List<Inquery>> entry : groupedEventInqueries.entrySet()) {
-			System.out.println("📅 Event Title: " + entry.getKey());
-			for (Inquery inq : entry.getValue()) {
-				System.out.println("    - ID: " + inq.getNoticeId() +
-						", Title: " + inq.getInqueryTitle() +
-						", Detail: " + inq.getInqueryDetail());
-			}
-		}
-
 		
-
-		//		model.addAttribute("groupedNoticeInqueries", groupedNoticeInqueries);
-		//		model.addAttribute("groupedEventInqueries", groupedEventInqueries);
+		model.addAttribute("groupedNoticeInqueries", groupedNoticeInqueries);
+		model.addAttribute("groupedEventInqueries", groupedEventInqueries);
 		return "inqueries/listInquery";
 	}
 

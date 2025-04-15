@@ -150,6 +150,54 @@ main.container-fluid {
 	/* はみ出した部分を「...」で表示 */
 }
 
+.card-img-overlay {
+	pointer-events: none;
+}
+
+/*detailNotice*/
+.note-container {
+	position: relative;
+	width: 100%;
+}
+
+.note-image {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.note-overlay {
+	position: absolute;
+	top: 7%;
+	/* ノート画像の上から20%の位置に配置 */
+	left: 7%;
+	/* ノート画像の左から7%の位置に配置 */
+	width: 86%;
+	display: flex;
+	justify-content: space-between;
+	font-size: 1.2rem;
+	/* 基準に沿った大きさで可変 */
+}
+
+.note-left,
+.note-right {
+	width: 48%;
+	padding: 1rem;
+	color: #212529;
+	border-radius: 0.5rem;
+}
+
+.note-left h3 {
+	text-align: center;
+}
+
+.note-right {
+	padding-top: 50px;
+	padding-left: 40px;
+}
+
+
+
 /* Events */
 .calendar-events-title {
 	font-size: 2em;
@@ -172,7 +220,7 @@ main.container-fluid {
 
 /* ▼ 曜日表示（日〜土）の色変更 */
 .fc-col-header-cell:first-child .fc-col-header-cell-cushion {
-	color: red;	
+	color: red;
 }
 
 .fc-col-header-cell:last-child .fc-col-header-cell-cushion {
@@ -189,11 +237,11 @@ main.container-fluid {
 }
 
 .table thead tr {
-    border-bottom: 2px solid #007bff;
+	border-bottom: 2px solid #007bff;
 }
 
 .table tbody tr:hover {
-    background-color: lightcyan; 	
+	background-color: lightcyan;
 }
 
 .list-events-title {
