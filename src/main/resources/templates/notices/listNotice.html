@@ -69,8 +69,7 @@
 						<p>[[${#temporals.format(notice.lastUpdate,'yyyy.MM.dd')}]] [[${notice.updateStatus}]]</p>
 						<h5 class="card-title">[[${notice.noticeTitle}]]</h5>
 						<p th:text="${#strings.abbreviate(notice.noticeDetail, 30)}"></p>
-						<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">Link<i
-								class="bi bi-chevron-double-right"></i></a>
+						<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">>></a>
 					</div>
 				</div>
 			</div>

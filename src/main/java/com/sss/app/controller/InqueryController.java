@@ -112,7 +112,7 @@ public class InqueryController {
 			@ModelAttribute("inquery") Inquery inquery,
 			Model model) throws Exception {
 		model.addAttribute("inquery", inquery);
-		return "inqueries/addInquery";
+		return "inqueries/editInquery";
 	}
 
 	//4-4.確認画面→追加実行
@@ -122,7 +122,7 @@ public class InqueryController {
 			Model model) throws Exception {
 		model.addAttribute("inquery", inquery);
 		service.editInquery(inquery);
-		return "inqueries/addInqueryDone";
+		return "inqueries/editInqueryDone";
 	}
 
 	//5.問い合わせの削除	
@@ -151,8 +151,7 @@ public class InqueryController {
 	//6-2.回答内容確認
 	@PostMapping("/addAnswerConf/{id}")
 	public String addAnswerConf(
-			@Valid @ModelAttribute("inquery") Inquery inquery,
-			Errors errors,
+			@ModelAttribute("inquery") Inquery inquery,
 			@RequestParam("inqueryId") Integer inqueryId,
 			Model model) throws Exception {
 		
@@ -162,6 +161,25 @@ public class InqueryController {
 
 		return "inqueries/addAnswerConf";
 	}
+	
+	//6-3.確認画面→入力画面に戻る(修正)
+		@PostMapping("/addAnswer/{id}")
+		public String backToEditAnswer(
+				@ModelAttribute("inquery") Inquery inquery,
+				Model model) throws Exception {
+			model.addAttribute("inquery", inquery);
+			return "inqueries/addAnswer";
+		}
+
+		//6-4.確認画面→追加実行
+		@PostMapping("/addAnswerDone")
+		public String addAnswerPost(
+				Inquery inquery,
+				Model model) throws Exception {
+			model.addAttribute("inquery", inquery);
+			service.editInquery(inquery);
+			return "inqueries/addAnswerDone";
+		}
 
 
 }

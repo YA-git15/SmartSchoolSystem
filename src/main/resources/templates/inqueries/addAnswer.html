@@ -53,21 +53,26 @@
 		<div id="editor" th:utext="*{answer}"></div>
 		<textarea id="answer" name="answer" th:field="*{answer}" style="display: none;"></textarea>
 
-		<span>ステータス</span>
-		<label>
-			<input type="radio" name="status" th:value="未回答" checked="checked"> 未回答			
-			<input type="radio" name="status" th:value="回答済み"> 回答済み
-		</label>
+		<p>
+			<span>ステータス</span>
+			<label>
+				<input type="radio" name="status" th:value="未回答" checked="checked"> 未回答
+				<input type="radio" name="status" th:value="回答済み"> 回答済み
+			</label>
+		</p>
 
 		<input type="hidden" name="inqueryDate" th:value="*{inqueryDate}">
 		<input type="hidden" name="answerDate" th:value="*{answerDate}">
 		<input type="hidden" name="noticeId" th:value="*{noticeId}">
+		<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
 		<input type="hidden" name="eventId" th:value="*{eventId}">
-		
-		<button type="submit" class="btn btn-outline-primary">回答内容確認</button>
+		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
 
-
+		<button type="submit" class="btn btn-outline-primary">確認画面へ</button>
+		<a th:href="@{/inqueries}" class="btn btn-outline-secondary">キャンセル</a>
 	</form>
+
+
 	<!-- Include the Quill library -->
 	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
@@ -75,10 +80,9 @@
 	<script>
 		const toolbarOptions = [
 			['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-			['link', 'image'],
+			['link'],
 
 			[{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
-			[{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
 			[{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
 
 			[{'size': ['small', false, 'large', 'huge']}],  // custom dropdown

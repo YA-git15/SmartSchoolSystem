@@ -55,9 +55,28 @@
 		<input type="hidden" name="inqueryDate" th:value="*{inqueryDate}">
 		<input type="hidden" name="answerDate" th:value="*{answerDate}">
 		<input type="hidden" name="noticeId" th:value="*{noticeId}">
+		<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
 		<input type="hidden" name="eventId" th:value="*{eventId}">
+		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
 		
-		<button type="submit" class="btn btn-outline-primary">回答入力に戻る</button>
+		<button type="submit" class="btn btn-outline-warning">回答入力に戻る</button>
+	</form>
+	
+		<!-- 確認画面からDBに送信するためのフォーム -->
+	<form th:action="@{/inqueries/addAnswerDone}" th:object="${inquery}" method="post">
+		<input type="hidden" name="inqueryId" th:value="*{inqueryId}">
+		<input type="hidden" name="inqueryTitle" th:value="*{inqueryTitle}">
+		<input type="hidden" name="inqueryDetail" th:value="*{inqueryDetail}">
+		<input type="hidden" name="answer" th:value="*{answer}">
+		<input type="hidden" name="status" th:value="*{status}">
+		<input type="hidden" name="inqueryDate" th:value="*{inqueryDate}">
+		<input type="hidden" name="answerDate" th:value="*{answerDate}">
+		<input type="hidden" name="noticeId" th:value="*{noticeId}">
+		<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
+		<input type="hidden" name="eventId" th:value="*{eventId}">
+		<input type="hidden" name="eventTitle" th:value="*{eventTitle}">
+		
+		<button type="submit" class="btn btn-outline-success">回答を保存</button>
 	</form>
 
 
