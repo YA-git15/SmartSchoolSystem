@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang='ja'>
 
 <head>
 	<meta charset='utf-8' />
@@ -12,72 +12,48 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
 		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/fullcalendar.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 	<!-- JS -->
+	<script th:src="@{/js/fullcalendar.js}"></script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-	<title>お知らせ一覧</title>
 </head>
 
 <body>
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
+	<div th:replace="fragments/header :: header"></div>
 
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
-
+	<main class="main-contents">
+		<div class="page-title">
+			<h1 class="detail-title">お知らせ</h1>
+			<a class="btn btn-primary add-btn" th:href="@{/notices/addNotice}">
+				<i class="bi bi-plus-circle"></i>新規お知らせ登録
+			</a>
 		</div>
 
 
-		<div class="card border-light text-dark">
-			<img src="images/header.jpg" class="card-img" alt="背景画像">
-			<div class="card-img-overlay d-flex">
-				<div class="my-auto">
-					<h1 class="page-title">Annoucement</h1>
-					<a class="btn btn-primary" th:href="@{/notices/addNotice}">
-						<i class="bi bi-plus-circle"></i>新規お知らせ作成
-					</a>
-				</div>
-			</div>
-
-		</div>
-
-	</header>
-	<main class="container mt-4">
-		<div class="row">
-			<div class="col-md-3 mb-4" th:each="notice : ${notices}">
-				<div class="card h-100">
-					<div class="card-img-overlay">
-						<p th:text="${notice.noticeTarget}" class="text-white"></p>
-					</div>
-					<img th:src="@{'/images/' + ${notice.targetColor}}" alt="学年カラー画像" class="card-img-top" />
-					<div class="card-body">
-						<p>[[${#temporals.format(notice.lastUpdate,'yyyy.MM.dd')}]] [[${notice.updateStatus}]]</p>
-						<h5 class="card-title">[[${notice.noticeTitle}]]</h5>
-						<p th:text="${#strings.abbreviate(notice.noticeDetail, 30)}"></p>
-						<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">>></a>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-md-3 mb-4" th:each="notice : ${notices}">
+					<div class="card h-100">
+						<div class="card-img-overlay">
+							<p th:text="${notice.noticeTarget}" class="text-white"></p>
+						</div>
+						<img th:src="@{'/images/' + ${notice.targetColor}}" alt="学年カラー画像" class="card-img-top" />
+						<div class="card-body">
+							<p>[[${#temporals.format(notice.lastUpdate,'yyyy.MM.dd')}]] [[${notice.updateStatus}]]</p>
+							<h5 class="card-title">[[${notice.noticeTitle}]]</h5>
+							<p th:text="${#strings.abbreviate(notice.noticeDetail, 30)}"></p>
+							<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}">>></a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</main>
-
-
-
 </body>
 
 </html>

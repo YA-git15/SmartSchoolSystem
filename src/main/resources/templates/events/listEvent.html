@@ -22,95 +22,65 @@
 </head>
 
 <body>
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
-
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
-
-		</div>
-
-
-		<div class="card border-light text-dark">
-			<img src="images/header.jpg" class="card-img" alt="背景画像">
-			<div class="card-img-overlay d-flex">
-				<div class="my-auto">
-					<h1 class="page-title">行事予定</h1>
-					<a class="btn btn-primary" th:href="@{/events/addEvent}">
-						<i class="bi bi-plus-circle"></i>新規行事作成
-					</a>
-				</div>
-			</div>
-
-		</div>
-	</header>
+	<div th:replace="fragments/header :: header"></div>
 
 	<main class="main-contents">
+		<div class="page-title">
+			<h1 class="detail-title">行事予定</h1>
+			<a class="btn btn-primary add-btn" th:href="@{/events/addEvent}">
+				<i class="bi bi-plus-circle"></i>新規行事登録
+			</a>
+		</div>
+
 		<div class="conatainer-fluid">
 			<div class="row">
-				<div class="col-8">
-					<div class="row">
-						<div class="col-12 calendar-events-title">月間</div>
-						<div class="col-12 calendar-events" id='calendar'></div>
-					</div>
+				<div class="col-8 calendar-area">
+					<div class="calendar-title">月間</div>
+					<div class="calendar-detail" id='calendar'></div>
 				</div>
-				<div class="col-4">
-					<div class="row">
-						<div class="col-12 list-events-title">年間</div>
-						<div class="col-12 list-events">
-							<table class="table table-hover listevent-table">
-								<thead>
-									<tr>
-										<th>
+				<div class="col-4 event-table-area">
+					<div class="col-12 event-table-title">年間</div>
+					<div class="col-12 event-table-detail">
+						<table class="table table-hover listevent-table">
+							<thead>
+								<tr>
+									<th>
+										<div class="row event-list">
+											<div class="col-7 event-date">Date</div>
+											<div class="col-5 event-title">行事名</div>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="event : ${events}">
+									<td>
+										<div class="table-link"
+											th:attr="data-id=${event.eventId}, data-title=${event.eventTitle}"
+											onclick="showEventDetails(this)">
+
 											<div class="row event-list">
-												<div class="col-7 event-date">Date</div>
-												<div class="col-5 event-title">行事名</div>
-											</div>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="event : ${events}">
-										<td>
-											<div class="table-link"
-												th:attr="data-id=${event.eventId}, data-title=${event.eventTitle}"
-												onclick="showEventDetails(this)">
-
-												<div class="row event-list">
-													<div class="col-7"
-														th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') == #temporals.format(event.eventEndDatetime,'MM月dd日')}">
-														[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]
-													</div>
-													<div class="col-7"
-														th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') != #temporals.format(event.eventEndDatetime,'MM月dd日')}">
-														[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]-
-														[[${#temporals.format(event.eventEndDatetime,'M月d日')}]]
-													</div>
-
-
-
-													<div class="col-5">[[${event.eventTitle}]]</div>
+												<div class="col-7"
+													th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') == #temporals.format(event.eventEndDatetime,'MM月dd日')}">
+													[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]
 												</div>
+												<div class="col-7"
+													th:if="${#temporals.format(event.eventStartDatetime,'MM月dd日') != #temporals.format(event.eventEndDatetime,'MM月dd日')}">
+													[[${#temporals.format(event.eventStartDatetime,'M月d日')}]]-
+													[[${#temporals.format(event.eventEndDatetime,'M月d日')}]]
+												</div>
+
+
+
+												<div class="col-5">[[${event.eventTitle}]]</div>
 											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
+
 				</div>
 			</div>
 

@@ -2,92 +2,89 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
 	<title>新規行事作成</title>
 </head>
 
 <body>
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
 
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
+	<div th:replace="fragments/header :: header"></div>
 
-		</div>
-
-
-	</header>
 	<main>
-		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
-			<div class="card-header">新規行事作成</div>
-			<div class="card-body">
-				<h5 class="card-title">行事内容入力</h5>
-				<p class="card-text">以下のフォームに必要事項を入力してください</p>
+		<div class="crud-ope-name">
+			<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+				<div class="card-header">新規行事作成</div>
+				<div class="card-body">
+					<h5 class="card-title">行事内容入力</h5>
+					<p class="card-text">以下のフォームに必要事項を入力してください</p>
+				</div>
 			</div>
 		</div>
-		<form th:action="@{/events/addEventConf}" th:object="${event}" method="post">
-			<div class="form-group">
-				<div class="form-row">
-					<label for="eventTitle">行事名</label>
-					<input type="text" id="eventTitle" th:field="*{eventTitle}">
-					<span th:errors="*{eventTitle}" class="error-message"></span>
-				</div>
 
-				<div class="form-row">
-					<label for="eventStartDatetime">開始</label>
-					<input type="datetime-local" id="eventStartDatetime" th:field="*{eventStartDatetime}">
-					<span>～</span>
-					<label for="eventEndDatetime">終了</label>
-					<input type="datetime-local" id="eventEndDatetime" th:field="*{eventEndDatetime}">
-				</div>
-
-				<div class="form-row">
-					<label for="eventPlace">場所</label>
-					<input type="text" id="eventPlace" th:field="*{eventPlace}">
-					<label for="eventTarget">対象者</label>
-					<select id="eventTarget" th:field="*{eventTarget}">
-						<th:block th:each="dropdownValue : ${dropdownValues}">
-							<option th:value="${dropdownValue}" th:text="${dropdownValue}"></option>
-						</th:block>
-					</select>
-					<span th:errors="*{eventTarget}" class="error-message"></span>
-				</div>
-
-
-				<div class="form-row-a">
-					<label for="eventDetail">内容</label>
-					<div id="editor">
-
+		<div class="crud-ope-form">
+			<form th:action="@{/events/addEventConf}" th:object="${event}" method="post">
+				<div class="form-group">
+					<div class="form-row">
+						<label for="eventTitle">行事名</label>
+						<input type="text" id="eventTitle" th:field="*{eventTitle}">
+						<span th:errors="*{eventTitle}" class="error-message"></span>
 					</div>
 
-					<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
-						style="display: none;"></textarea>
+					<div class="form-row">
+						<label for="eventStartDatetime">開始</label>
+						<input type="datetime-local" id="eventStartDatetime" th:field="*{eventStartDatetime}">
+						<span>～</span>
+						<label for="eventEndDatetime">終了</label>
+						<input type="datetime-local" id="eventEndDatetime" th:field="*{eventEndDatetime}">
+					</div>
+
+					<div class="form-row">
+						<label for="eventPlace">場所</label>
+						<input type="text" id="eventPlace" th:field="*{eventPlace}">
+						<label for="eventTarget">対象者</label>
+						<select id="eventTarget" th:field="*{eventTarget}">
+							<th:block th:each="dropdownValue : ${dropdownValues}">
+								<option th:value="${dropdownValue}" th:text="${dropdownValue}"></option>
+							</th:block>
+						</select>
+						<span th:errors="*{eventTarget}" class="error-message"></span>
+					</div>
+
+
+					<div class="form-row-a">
+						<label for="eventDetail">内容</label>
+						<div id="editor">
+
+						</div>
+
+						<textarea id="eventDetail" name="eventDetail" th:field="*{eventDetail}"
+							style="display: none;"></textarea>
+					</div>
 				</div>
-			</div>
-
-			<button type="submit" class="btn btn-primary">入力内容確認</button>
-
-		</form>
+				<div class="crud-ope-button">
+					<button type="submit" class="btn btn-primary">入力内容確認</button>
+					<a th:href="@{/home}" class="btn btn-secondary">キャンセル</a>
+				</div>
+			</form>
+		</div>
 	</main>
 
 	<!-- Include the Quill library -->

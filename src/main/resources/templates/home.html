@@ -8,6 +8,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
@@ -21,39 +23,9 @@
 </head>
 
 <body>
-
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
-
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
-		</div>
-	</header>
+	<div th:replace="fragments/header :: header"></div>
 
 	<main>
-		<div class="container">
-			<div class=" home-img">
-				<img th:src="@{/images/home/home01.jpg}" alt="学校風景">
-				<img th:src="@{/images/home/home02.jpg}" alt="学校風景">
-				<img th:src="@{/images/home/home03.jpg}" alt="学校風景">
-				<img th:src="@{/images/home/home04.jpg}" alt="学校風景">
-				<img th:src="@{/images/home/home05.jpg}" alt="学校風景">
-				<img th:src="@{/images/home/home06.jpg}" alt="学校風景">
-			</div>
-		</div>
 
 		<div class="container">
 			<div class="row news">
@@ -163,28 +135,7 @@
 		</div>
 	</main>
 
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const images = document.querySelectorAll(".home-img img");
-			let current = 0;
-			const displayTime = 5000; // 4秒
-
-			function showNextImage() {
-				images[current].classList.remove("active");
-
-				current = (current + 1) % images.length;
-
-				images[current].classList.add("active");
-			}
-
-			// 最初の画像を表示
-			images[0].classList.add("active");
-
-			// 一定間隔で切り替え
-			setInterval(showNextImage, displayTime);
-		});
-	</script>
-
+	
 </body>
 
 </html>

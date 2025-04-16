@@ -1,97 +1,141 @@
 @charset "UTF-8";
 
+/* 全ページ共通設定 */
+
 body {
 	font-family: "M PLUS 1", sans-serif;
 	font-weight: 500;
 	font-style: normal;
 	margin-top: 20px;
-	margin-left: 40px;
-	margin-right: 40px;
-	background-image: url("/images/background-image.jpg");
-	background-size: cover;
 }
 
-
-.header {
+header {
+	padding: 30px;
 	white-space: nowrap;
 }
 
-.shcool-name-and-nav {
-	display: flex;
-	text-decoration: none;
-	justify-content: space-between;
-	align-items: center;
-	height: 50px;
+.home-contents {
 	color: #343a40;
 	padding-right: 15px;
-	margin-bottom: 5px;
+	display: flex;
+	align-items: stretch;
 }
 
-/* ロゴと学校名の高さ調整 */
+.system-logo img {
+	width: 100%;
+	max-width: 80px;
+}
+
 .school-name {
 	display: flex;
 	align-items: center;
-}
-
-/* ナビゲーションリンクの配置調整 */
-.nav-link {
-	display: flex;
-	justify-content: end;
-	text-align: right;
-	padding-right: 5px;
+	height: 100%;
 
 }
 
-.nav-link a {
+.school-name a,
+.nav-links a {
 	text-decoration: none;
 	color: #343a40;
-	margin-left: 5px;
 }
 
-.nav-link :hover {
-	color: lightblue;
+.school-name a h1 {
+	font-size: 3vw;
 }
 
-.header-img {
-	position: relative;
-	width: 100%;
-	height: auto;
-	margin-top: 5px;
+.nav-links {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+	gap: 15px;
+	height: 100%;
 }
+
+@media (max-width: 768px) {
+	.nav-links {
+		justify-content: flex-start;
+	}
+}
+
+/* main共通設定 */
+
+main {
+	background-image: linear-gradient(rgba(255, 253, 240, 0.2),
+			/* 薄いクリーム色（上） */
+			rgba(255, 253, 240, 0.2)
+			/* 薄いクリーム色（下） */
+		), url("/images/background-image2.jpg");
+	min-height: 100vh;
+
+}
+
+.page-title {
+	display: flex;
+	justify-content: start;
+	gap: 10px
+}
+
+.crud-ope-name {
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.crud-ope-form,
+.detail-contets {
+	margin-left: 100px;
+	margin-right: 100px;
+	padding: 30px;
+	background-color: LightSteelBlue;
+	border-radius: 8px;
+}
+
+
+.crud-ope-done {
+	margin-left: 100px;
+	margin-right: 100px;
+	padding: 30px;
+	background-color: #F5FFFA;
+	border-radius: 8px;
+}
+
+.crud-ope-form form button,
+.crud-ope-form a,
+.crud-ope-button button {
+	border-radius: 24px;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	
+}
+
+.crud-ope-button {
+	display: flex;
+	justify-content: start;
+	gap: 10px
+}
+
+#editor,
+.ql-toolbar.ql-snow {
+	background-color: #F5FFFA;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+}
+
+#editor .ql-editor {
+  min-height: 300px;
+}
+
+
+
+
+
 
 /* home */
 
-.home-img {
-  position: relative;
-  width: 100%;
-  max-width: 700px; /* 必要に応じて */
-  height: auto;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  margin: 0 auto;
-  display: block;
-}
-
-.home-img img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;  
-  transition: opacity 2s ease-in-out;
-}
-
-.home-img img.active {
-  opacity: 1;
-  z-index: 1;
-}
 
 .news,
 .event,
 .school {
-	background-color:LightSteelBlue;
+	background-color: LightSteelBlue;
 	padding: 50px;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -188,8 +232,31 @@ body {
 
 
 /* Events */
-.calendar-events-title {
+
+.calendar-area,
+.event-table-area,
+.event-inq-area,
+.notice-inq-area {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.calendar-title,
+.event-table-title {
 	font-size: 2em;
+}
+
+.calendar-detail,
+.event-table-detail {
+	background-color: #F5FFFA;
+	padding: 1rem;
+	border-radius: 8px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-table-detail {
+	margin-top: 20px;
 }
 
 #calendar {
@@ -225,6 +292,9 @@ body {
 	color: blue;
 }
 
+
+
+
 .table thead tr {
 	border-bottom: 2px solid #007bff;
 }
@@ -233,14 +303,7 @@ body {
 	background-color: lightcyan;
 }
 
-.list-events-title {
-	font-size: 2em;
-}
 
-.list-events {
-	margin-top: 20px;
-	padding-left: 20px;
-}
 
 .form-group {
 	display: flex;

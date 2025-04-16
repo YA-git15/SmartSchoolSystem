@@ -8,6 +8,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
@@ -17,124 +19,93 @@
 
 	<!-- JS -->
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-	<title>問い合わせ一覧</title>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+	<title>行事編集</title>
 </head>
 
 <body>
-	<header class="container-fluid header">
-		<div class="row shcool-name-and-nav">
-			<div class="col-12 col-md-6 school-name">
-				<a href="/home" class="d-flex align-items-center text-decoration-none text-dark">
-					<img src="/images/logo_system.png" alt="ロゴ" class="img-fluid"
-						style="width: 20%; margin-right: 10px;">
-					<h2 class="mb-0">横浜市立新横浜小学校</h2>
-				</a>
-			</div>
 
-			<div class="col-12 col-md-6 nav-link">
-				<div class="row navs">
-					<div class="col-3"><a th:href="@{/notices}">お知らせ</a></div>
-					<div class="col-3"><a th:href="@{/events}">行事予定</a></div>
-					<div class="col-3"><a th:href="@{/inqueries}">問い合わせ</a></div>
-					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
-				</div>
-			</div>
+	<div th:replace="fragments/header :: header"></div>
 
-		</div>
-
-
-		<div class="card border-light text-dark">
-			<img src="images/header.jpg" class="card-img" alt="背景画像">
-			<div class="card-img-overlay d-flex">
-				<div class="my-auto">
-					<h1 class="page-title">Inquery</h1>
-				</div>
-			</div>
-
-		</div>
-
-	</header>
 	<main>
+		<div class="page-title">
+			<h1 class="detail-title">Q&amp;A</h1>
+		</div>
+
+
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-6">
-					<div class="row">
-						<div class="col-12">
-							<p>行事Q&amp;A</p>
-						</div>
-						<div class="col-12">
-							<div th:each="entry, stat : ${groupedEventInqueries}">
-								<h6 th:text="${entry.key}"></h6>
+					<div class="event-inq-area">
+						<h2>行事Q&amp;A</h2>
+						<div th:each="entry, stat : ${groupedEventInqueries}">
+							<h6 th:text="${entry.key}"></h6>
 
-								<div class="accordion" th:id="'accordionEvent' + ${stat.index}">
-									<div th:each="inq : ${entry.value}" class="accordion-item">
-										<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse"
-												th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
-												aria-expanded="false"
-												th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
-												<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
-											</button>
-										</h2>
+							<div class="accordion" th:id="'accordionEvent' + ${stat.index}">
+								<div th:each="inq : ${entry.value}" class="accordion-item">
+									<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
+											aria-expanded="false"
+											th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
+											<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
+										</button>
+									</h2>
 
-										<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
-											th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
-											th:attr="data-bs-parent='#accordionEvent' + ${stat.index}">
-											<div class="accordion-body">
-												<p><span th:utext="${inq.inqueryDetail}"></span></p>
-												<p><strong>A.</strong></p>
-												<div th:utext="${inq.answer}"></div>
-												<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
-													<button type="button"
-														class="btn btn-outline-primary">回答入力・編集</button>
-												</a>
-											</div>
+									<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
+										th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
+										th:attr="data-bs-parent='#accordionEvent' + ${stat.index}">
+										<div class="accordion-body">
+											<p><span th:utext="${inq.inqueryDetail}"></span></p>
+											<p><strong>A.</strong></p>
+											<div th:utext="${inq.answer}"></div>
+											<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
+												<div class="crud-ope-button">
+													<button type="button" class="btn btn-primary">回答入力・編集</button>
+												</div>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 
-
 				<div class=" col-6">
-					<div class="row">
-						<div class="col-12">
-							<p>お知らせQ&amp;A</p>
-						</div>
-						<div class="col-12">
-							<div th:each="entry, stat : ${groupedNoticeInqueries}">
-								<h6 th:text="${entry.key}"></h6>
+					<div class="notice-inq-area">
+						<h2>お知らせQ&amp;A</h2>
+						<div th:each="entry, stat : ${groupedNoticeInqueries}">
+							<h6 th:text="${entry.key}"></h6>
 
-								<div class="accordion" th:id="'accordionNotice' + ${stat.index}">
-									<div th:each="inq : ${entry.value}" class="accordion-item">
-										<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse"
-												th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
-												aria-expanded="false"
-												th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
-												<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
-											</button>
-										</h2>
+							<div class="accordion" th:id="'accordionNotice' + ${stat.index}">
+								<div th:each="inq : ${entry.value}" class="accordion-item">
+									<h2 class="accordion-header" th:id="'heading' + ${inq.inqueryId}">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											th:attr="data-bs-target='#collapse' + ${inq.inqueryId}"
+											aria-expanded="false"
+											th:attrappend="aria-controls='collapse' + ${inq.inqueryId}">
+											<strong th:text="'Q. '+${inq.inqueryTitle}"></strong>
+										</button>
+									</h2>
 
-										<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
-											th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
-											th:attr="data-bs-parent='#accordionNotice' + ${stat.index}">
-											<div class="accordion-body">
-												<p>
-													<span th:utext="${inq.inqueryDetail}"></span>
-												</p>
-												<p><strong>A.</strong></p>												
-												<div th:utext="${inq.answer}"></div>
-												<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
-													<button type="button"
-														class="btn btn-outline-primary">回答入力・編集</button>
-												</a>
-											</div>
+									<div class="accordion-collapse collapse" th:id="'collapse' + ${inq.inqueryId}"
+										th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
+										th:attr="data-bs-parent='#accordionNotice' + ${stat.index}">
+										<div class="accordion-body">
+											<p>
+												<span th:utext="${inq.inqueryDetail}"></span>
+											</p>
+											<p><strong>A.</strong></p>
+											<div th:utext="${inq.answer}"></div>
+											<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
+												<div class="crud-ope-button">
+													<button type="button" class="btn btn-primary">回答入力・編集</button>
+												</div>
+											</a>
 										</div>
 									</div>
 								</div>

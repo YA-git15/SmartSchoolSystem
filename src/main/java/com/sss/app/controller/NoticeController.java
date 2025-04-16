@@ -26,7 +26,6 @@ public class NoticeController {
 
 	private final NoticeService service;
 	private final UtilService utilService;
-	
 
 	//1.お知らせ一覧の表示
 	@GetMapping
@@ -58,21 +57,21 @@ public class NoticeController {
 	public String addNoticeConf(
 			@Valid @ModelAttribute("notice") Notice notice,
 			Errors errors,
-			@RequestParam("formattedTitle") String formattedTitle,
-			@RequestParam("eventId") Integer eventId,
+			@RequestParam(value = "formattedTitle", required = false) String formattedTitle,
+			@RequestParam(value = "eventId", required = false) Integer eventId,
 			Model model) throws Exception {
 		//3-2-1.エラーあり→フォーム再表示
-		if (errors.hasErrors()) {			
+		if (errors.hasErrors()) {
 			model.addAttribute("dropdownValues", utilService.getTargetNames());
 			model.addAttribute("dropdownTitles", utilService.getEventTitles());
 			return "notices/addNotice";
 		}
 		//3-2-2.エラーなし→確認画面へ
 		notice.setFormattedTitle(formattedTitle);
-		notice.setEventId(eventId);  
+		notice.setEventId(eventId);
 		LocalDateTime currentDate = LocalDateTime.now();
 		notice.setNoticeDate(currentDate);
-		notice.setLastUpdate(currentDate);		
+		notice.setLastUpdate(currentDate);
 		model.addAttribute("notice", notice);
 
 		return "notices/addNoticeConf";

@@ -2,60 +2,81 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-	<title>新規行事追加内容確認</title>
+
+	<title>新規行事作成</title>
 </head>
 
 <body>
+
+	<div th:replace="fragments/header :: header"></div>
+
 	<main>
-		<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
-			<div class="card-header">新規行事作成</div>
-			<div class="card-body">
-				<h5 class="card-title">行事内容確認</h5>
-				<p class="card-text">以下の内容で行事登録しますか？</p>
+		<div class="crud-ope-name">
+			<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+				<div class="card-header">新規行事作成</div>
+				<div class="card-body">
+					<h5 class="card-title">行事内容確認</h5>
+					<p class="card-text">以下の内容で行事登録しますか？</p>
+				</div>
 			</div>
 		</div>
-		
-		<p>行事名: [[${notice.noticeTitle}]]</p>
-		<p>対象: [[${notice.noticeTarget}]]</p>
-		<p>関連行事: [[${notice.formattedTitle}]]</p>
-		<p>ID:[[${notice.eventId}]]</p>
-		<div class="form-row-a">
-			<label for="noticeDetail">内容</label>
-			<!-- Quillエディタの内容をそのまま表示 -->
-			<div id="noticeDetailPreview" th:utext="${notice.noticeDetail}"></div>
+
+		<div class="crud-ope-form">
+			<p>行事名: [[${notice.noticeTitle}]]</p>
+			<p>対象: [[${notice.noticeTarget}]]</p>
+			<p>関連行事: [[${notice.formattedTitle}]]</p>
+			<p>ID:[[${notice.eventId}]]</p>
+			<div class="form-row-a">
+				<label for="noticeDetail">内容</label>
+				<!-- Quillエディタの内容をそのまま表示 -->
+				<div id="noticeDetailPreview" th:utext="${notice.noticeDetail}"></div>
+			</div>
+			</p>
+
+
+			<div class="crud-ope-button">
+				<!-- 確認画面から修正画面に戻るためのフォーム -->
+				<form th:action="@{/notices/addNotice}" method="post" th:object="${notice}">
+					<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
+					<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+					<input type="hidden" name="eventId" th:value="*{eventId}">
+					<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+					<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
+					<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
+					<button type="submit" class="btn btn-warning">編集に戻る</button>
+				</form>
+
+				<!-- 確認画面からDBに送信するためのフォーム -->
+				<form th:action="@{/notices/addNoticeDone}" method="post" th:object="${notice}">
+					<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
+					<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
+					<input type="hidden" name="eventId" th:value="*{eventId}">
+					<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
+					<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
+					<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
+					<button type="submit" class="btn btn-success">新規行事を保存</button>
+				</form>
+				<a th:href="@{/home}" class="btn btn-secondary">キャンセル</a>
+			</div>
 		</div>
-		</p>
-		
-
-		<!-- 確認画面から修正画面に戻るためのフォーム -->
-		<form th:action="@{/notices/addNotice}" method="post" th:object="${notice}">
-			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
-			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
-			<input type="hidden" name="eventId" th:value="*{eventId}">
-			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
-			<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
-			<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
-			<button type="submit" class="btn btn-outline-warning">編集に戻る</button>
-		</form>
-
-		<!-- 確認画面からDBに送信するためのフォーム -->
-		<form th:action="@{/notices/addNoticeDone}" method="post" th:object="${notice}">
-			<input type="hidden" name="noticeTitle" th:value="*{noticeTitle}">
-			<input type="hidden" name="noticeTarget" th:value="*{noticeTarget}">
-			<input type="hidden" name="eventId" th:value="*{eventId}">
-			<input type="hidden" name="noticeDetail" th:value="*{noticeDetail}">
-			<input type="hidden" name="noticeDate" th:value="*{noticeDate}">
-			<input type="hidden" name="lastUpdate" th:value="*{lastUpdate}">
-			<button type="submit" class="btn btn-outline-success">新規行事を保存</button>
-		</form>
 	</main>
 </body>
 

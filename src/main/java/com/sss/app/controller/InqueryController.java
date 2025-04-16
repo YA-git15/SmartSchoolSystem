@@ -42,12 +42,21 @@ public class InqueryController {
 	//3-1.新規作成画面遷移
 	@GetMapping("/addInquery")
 	public String addInqueryGet(
-			@RequestParam("id") Integer noticeId,
-			@RequestParam("title") String noticeTitle,
-			Model model) throws Exception {	
+			@RequestParam(value = "noticeId", required = false) Integer noticeId,
+			@RequestParam(value = "noticeTitle", required = false) String noticeTitle,
+			@RequestParam(value = "eventId", required = false) Integer eventId,
+			@RequestParam(value = "eventTitle", required = false) String eventTitle,
+			Model model) throws Exception {
 		Inquery inquery = new Inquery();
-		inquery.setNoticeId(noticeId);
-		inquery.setNoticeTitle(noticeTitle);
+		if (noticeId != null) {
+			inquery.setNoticeId(noticeId);
+			inquery.setNoticeTitle(noticeTitle);
+		}
+
+		if (eventId != null) {
+			inquery.setEventId(eventId);
+			inquery.setEventTitle(eventTitle);
+		}
 		model.addAttribute("inquery", inquery);
 		return "inqueries/addInquery";
 	}
@@ -189,44 +198,44 @@ public class InqueryController {
 		return "inqueries/addAnswerDone";
 	}
 
-//	//4.問い合わせの編集
-//	//7-1. 編集画面遷移
-//	@GetMapping("/editAnswer/{id}")
-//	public String editAnswerGet(@PathVariable Integer id, Model model) throws Exception {
-//				model.addAttribute("inquery", service.getInqueryListById(id));
-//				return "inqueries/addInquery";		
-//			}
-//
-//	//7-2.編集内容入力
-//	@PostMapping("/editAnswerConf/{id}")
-//	public String editAnswerConf(
-//			@PathVariable Integer id,
-//			@ModelAttribute("inquery") Inquery inquery,
-//			Model model) throws Exception {
-//		model.addAttribute("inquery", inquery);
-//		return "inqueries/addInqueryConf";
-//
-//	}
-//
-//	//7-3.確認画面→入力画面に戻る(修正)
-//	@PostMapping("/editAnswer/{id}")
-//	public String backToEditAnswer(
-//			@ModelAttribute("inquery") Inquery inquery,
-//			Model model) throws Exception {
-//		model.addAttribute("inquery", inquery);
-//		return "inqueries/editInquery";
-//	}
-//
-//	//7-4.確認画面→追加実行
-//	@PostMapping("/editAnswerDone")
-//	public String editAnswerPost(
-//			Inquery inquery,
-//			Model model) throws Exception {
-//		LocalDateTime currentDate = LocalDateTime.now();
-//		inquery.setAnswerDate(currentDate);
-//		model.addAttribute("inquery", inquery);
-//		service.editInquery(inquery);
-//		return "inqueries/editInqueryDone";
-//	}
+	//	//4.問い合わせの編集
+	//	//7-1. 編集画面遷移
+	//	@GetMapping("/editAnswer/{id}")
+	//	public String editAnswerGet(@PathVariable Integer id, Model model) throws Exception {
+	//				model.addAttribute("inquery", service.getInqueryListById(id));
+	//				return "inqueries/addInquery";		
+	//			}
+	//
+	//	//7-2.編集内容入力
+	//	@PostMapping("/editAnswerConf/{id}")
+	//	public String editAnswerConf(
+	//			@PathVariable Integer id,
+	//			@ModelAttribute("inquery") Inquery inquery,
+	//			Model model) throws Exception {
+	//		model.addAttribute("inquery", inquery);
+	//		return "inqueries/addInqueryConf";
+	//
+	//	}
+	//
+	//	//7-3.確認画面→入力画面に戻る(修正)
+	//	@PostMapping("/editAnswer/{id}")
+	//	public String backToEditAnswer(
+	//			@ModelAttribute("inquery") Inquery inquery,
+	//			Model model) throws Exception {
+	//		model.addAttribute("inquery", inquery);
+	//		return "inqueries/editInquery";
+	//	}
+	//
+	//	//7-4.確認画面→追加実行
+	//	@PostMapping("/editAnswerDone")
+	//	public String editAnswerPost(
+	//			Inquery inquery,
+	//			Model model) throws Exception {
+	//		LocalDateTime currentDate = LocalDateTime.now();
+	//		inquery.setAnswerDate(currentDate);
+	//		model.addAttribute("inquery", inquery);
+	//		service.editInquery(inquery);
+	//		return "inqueries/editInqueryDone";
+	//	}
 
 }
