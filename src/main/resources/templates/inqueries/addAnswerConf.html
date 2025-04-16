@@ -42,7 +42,10 @@
 	<p>質問内容:
 	</p>
 	<span><strong>[[${inquery.inqueryTitle}]]</strong></span>
-	<p>[[${inquery.inqueryDetail}]]</p>
+	<div th:utext="${inquery.inqueryDetail}"></div>
+	
+	<p>回答内容：</p>
+	<div th:utext="${inquery.answer}"></div>
 
 	
 	<!-- 確認画面から修正画面に戻るためのフォーム -->

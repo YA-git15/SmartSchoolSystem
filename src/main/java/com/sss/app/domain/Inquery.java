@@ -13,6 +13,7 @@ public class Inquery {
 
 	private Integer inqueryId;
 
+	@NotBlank
 	private String inqueryTitle;
 
 	@NotBlank

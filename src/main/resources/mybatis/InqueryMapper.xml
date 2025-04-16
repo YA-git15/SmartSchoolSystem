@@ -73,9 +73,9 @@
 
 	<insert id="insert" parameterType="Inquery">
 		INSERT INTO
-		inqueries(inquery_detail, answer, status, inquery_date)
+		inqueries(inquery_title, inquery_detail, answer, status, inquery_date, notice_id, event_id)
 		VALUES
-		(#{inqueryDetail}, #{answer}, #{status}, #{inqueryDate})
+		(#{inqueryTitle}, #{inqueryDetail}, #{answer}, #{status}, #{inqueryDate}, #{noticeId}, #{eventId})
 	</insert>
 
 	<update id="update" parameterType="Inquery">

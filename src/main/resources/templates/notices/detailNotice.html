@@ -45,31 +45,27 @@
 	<div class="note-container">
 		<img src="/images/note.jpg" alt="ノート" class="note-image">
 
-		<div class="note-overlay"  th:object="${notice}">
+		<div class="note-overlay" th:object="${notice}">
 			<div class="note-left">
 				<h3>[[*{noticeTitle}]]</h5>
-				<p>【対 象】 [[*{noticeTarget}]]</p>
-				<p>【関連行事】 <a th:href="@{/events/detailEvent/{id} (id=*{eeventId})}">[[*{eventTitle}]]</a></p>
-				<p>【内 容】</p>
-				<p th:utext="*{noticeDetail}"></p>				
+					<p>【対 象】 [[*{noticeTarget}]]</p>
+					<p>【関連行事】 <a th:href="@{/events/detailEvent/{id} (id=*{eeventId})}">[[*{eventTitle}]]</a></p>
+					<p>【内 容】</p>
+					<p th:utext="*{noticeDetail}"></p>
 			</div>
 			<div class="note-right">
-				
+
 			</div>
+			<a th:href="@{/inqueries/addInquery(id=*{noticeId}, title=*{noticeTitle})}">
+				<button type="button" class="btn btn-outline-primary">このお知らせについて問い合わせる</button>
+			</a>
+			<p>※行事に対するお問い合わせは<a th:href="@{/events/detailEvent/{id} (id=*{eeventId})}">行事詳細ページ</a>よりお願いいたします。</p>
 		</div>
 	</div>
 
 
-	<h2>notice_title</h2>
-	<table>
-		<p>notice_date</p>
-		<p>update_date</p>
-		<p>notice_detail</p>
-		<p>event_name</p>
-		<p>event_date</p>
-		<p>file</p>
-		<p><a href="">この行事について問い合わせる</a></p>
-	</table>
+
+
 
 
 </body>

@@ -26,6 +26,11 @@ public class EventServiceImpl implements EventService {
 	public Event getEventById(Integer eventId) throws Exception {
 		return eventMapper.selectEventById(eventId);
 	}
+	
+	@Override
+	public List<Event> getEventListByThisMonth() throws Exception{
+		return eventMapper.selectEventsByThisMonth();
+	}
 
 	@Override
 	public void addEvent(Event event) throws Exception {

@@ -42,7 +42,7 @@
 	<p>質問内容:
 	</p>
 	<span><strong>[[${inquery.inqueryTitle}]]</strong></span>
-	<p>[[${inquery.inqueryDetail}]]</p>
+	<div th:utext="${inquery.inqueryDetail}"></div>
 
 	<form th:action="@{/inqueries/addAnswerConf/{id} (id=${inquery.inqueryId})}" th:object="${inquery}" method="post">
 		<input type="hidden" name="inqueryId" th:value="*{inqueryId}">

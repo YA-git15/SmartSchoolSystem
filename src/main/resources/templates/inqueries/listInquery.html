@@ -82,10 +82,12 @@
 											th:attrappend="aria-labelledby='heading' + ${inq.inqueryId}"
 											th:attr="data-bs-parent='#accordionEvent' + ${stat.index}">
 											<div class="accordion-body">
-												<p><span th:text="${inq.inqueryDetail}"></span></p>
-												<p><strong>A.</strong> <span th:utext="${inq.answer}"></span></p>
+												<p><span th:utext="${inq.inqueryDetail}"></span></p>
+												<p><strong>A.</strong></p>
+												<div th:utext="${inq.answer}"></div>
 												<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
-													<button type="button" class="btn btn-outline-primary">回答する</button>
+													<button type="button"
+														class="btn btn-outline-primary">回答入力・編集</button>
 												</a>
 											</div>
 										</div>
@@ -124,17 +126,19 @@
 											th:attr="data-bs-parent='#accordionNotice' + ${stat.index}">
 											<div class="accordion-body">
 												<p>
-													<span th:text="${inq.inqueryDetail}"></span>
+													<span th:utext="${inq.inqueryDetail}"></span>
 												</p>
-												<p>
-													<strong>A.</strong><span th:utext="${inq.answer}"></span>
-												</p>
+												<p><strong>A.</strong></p>												
+												<div th:utext="${inq.answer}"></div>
+												<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
+													<button type="button"
+														class="btn btn-outline-primary">回答入力・編集</button>
+												</a>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>

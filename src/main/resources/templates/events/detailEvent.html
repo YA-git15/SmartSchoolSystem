@@ -87,6 +87,9 @@
 				</span>
 			</p>
 			<p th:utext="${event.eventDetail}"></p>
+			<a th:href="@{/inqueries/addInquery(id=${event.eventId}, title=${event.eventTitle})}">
+				<button type="button" class="btn btn-outline-primary">この行事について問い合わせる</button>
+			</a>
 		</div>
 
 		<!-- モーダル表示 -->
@@ -130,11 +133,12 @@
 				</span>
 			<p>場所：[[${event.eventPlace}]]</p>
 			<p th:utext="${event.eventDetail}"></p>
-
+			<div th:object="${event}">
+			<a th:href="@{/inqueries/addInquery(id=*{eventId}, title=*{eventId})}">
+				<button type="button" class="btn btn-outline-primary">この行事について問い合わせる</button>
+			</a>
+			</div>
 	</main>
-
-
-
 </body>
 
 </html>

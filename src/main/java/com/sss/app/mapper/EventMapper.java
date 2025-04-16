@@ -8,6 +8,7 @@ public interface EventMapper {
 	
 	List<Event> selectEvents() throws Exception;
 	Event selectEventById(Integer eventId) throws Exception;
+	List<Event> selectEventsByThisMonth() throws Exception;
 	void insert(Event event) throws Exception;
 	void update(Event event) throws Exception;
 	void delete(Integer eventId) throws Exception;

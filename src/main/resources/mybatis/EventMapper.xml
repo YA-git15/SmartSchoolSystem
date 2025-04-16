@@ -5,31 +5,46 @@
 
 	<select id="selectEvents" resultType="Event">
 		SELECT * FROM events
-		ORDER BY event_start_datetime ASC
+		ORDER
+		BY event_start_datetime ASC
 	</select>
-	
-	<select id="selectEventById">
+
+	<select id="selectEventById" resultType="Event">
 		SELECT * FROM events WHERE event_id = #{eventId}
 	</select>
-	
+
+	<select id="selectEventsByThisMonth" resultType="Event">
+		SELECT *
+		FROM events
+		WHERE MONTH(event_start_datetime) = MONTH(NOW())
+		AND YEAR(event_start_datetime) = YEAR(NOW())
+		ORDER BY event_start_datetime ASC	
+	</select>
+
 	<insert id="insert" parameterType="Event">
-		INSERT INTO events(event_title, event_start_datetime, event_end_datetime, event_place, event_target, event_detail)
-		VALUES (#{eventTitle}, #{eventStartDatetime}, #{eventEndDatetime}, #{eventPlace}, #{eventTarget}, #{eventDetail})	
+		INSERT INTO
+		events(event_title, event_start_datetime, event_end_datetime,
+		event_place, event_target, event_detail)
+		VALUES (#{eventTitle},
+		#{eventStartDatetime}, #{eventEndDatetime}, #{eventPlace},
+		#{eventTarget}, #{eventDetail})
 	</insert>
-	
+
 	<update id="update" parameterType="Event">
 		UPDATE events
-		SET event_title = #{eventTitle},
-			event_start_datetime = #{eventStartDatetime},
-			event_end_datetime = #{eventEndDatetime},
-			event_place = #{eventPlace},
-			event_target = #{eventTarget},
-			event_detail = #{eventDetail}
-		WHERE event_id = #{eventId}	
+		SET event_title =
+		#{eventTitle},
+		event_start_datetime = #{eventStartDatetime},
+		event_end_datetime = #{eventEndDatetime},
+		event_place = #{eventPlace},
+		event_target = #{eventTarget},
+		event_detail = #{eventDetail}
+		WHERE event_id = #{eventId}
 	</update>
-	
+
 	<delete id="delete" parameterType="int">
-		DELETE FROM events WHERE event_id = #{eventId}	
+		DELETE FROM events WHERE
+		event_id = #{eventId}
 	</delete>
-	
+
 </mapper>

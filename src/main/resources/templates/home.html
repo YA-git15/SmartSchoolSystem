@@ -2,13 +2,21 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Web Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<title>HOME</title>
 </head>
 
@@ -32,75 +40,151 @@
 					<div class="col-3"><a th:href="@{/logout}">ログアウト</a></div>
 				</div>
 			</div>
-
-		</div>
-
-
-		<div class="card border-light text-dark">
-			<img src="images/header.jpg" class="card-img" alt="背景画像">
-			<div class="card-img-overlay d-flex">
-				<div class="my-auto">
-					<h1 class="page-title">HOME</h1>
-				</div>
-			</div>
-
 		</div>
 	</header>
 
-	<main class="container-fluid">
-		<div class="row home-contents">
-			<div class="col-12 col-md-6 latest-notice">
-				<h2>新着情報</h2>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<div class="row latest-list">
-								<div class="col-md-2 status"></div>
-								<div class="col-md-3 th-last-update">最終更新日</div>
-								<div class="col-md-3 th-notice-date">お知らせ日</div>
-								<div class="col-md-4 th-notice-title">タイトル</div>
-							</div>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="notice : ${notices}">
-							<td>
-								<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}" class="table-link">
-									<div class="row latest-list">
-										<div class="col-md-2 status">[[${notice.updateStatus}]]</div>
-										<div class="col-md-3 last-update">[[${#temporals.format(notice.lastUpdate,
-											'MM-dd')}]]
-										</div>
-										<div class="col-md-3 notice-date">[[${#temporals.format(notice.noticeDate,
-											'MM-dd')}]]
-										</div>
-										<div class="col-md-4 notice-title">[[${notice.noticeTitle}]]</div>
-									</div>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="link-notice-detail text-end mt-3"><a th:href="@{/notices}">>>お知らせ一覧</a></div>
+	<main>
+		<div class="container">
+			<div class=" home-img">
+				<img th:src="@{/images/home/home01.jpg}" alt="学校風景">
+				<img th:src="@{/images/home/home02.jpg}" alt="学校風景">
+				<img th:src="@{/images/home/home03.jpg}" alt="学校風景">
+				<img th:src="@{/images/home/home04.jpg}" alt="学校風景">
+				<img th:src="@{/images/home/home05.jpg}" alt="学校風景">
+				<img th:src="@{/images/home/home06.jpg}" alt="学校風景">
 			</div>
-			<div class="col-12 col-md-6 about-school">
-				<h2>学校詳細</h2>
-				<ul>
-					<li>学校名：横浜市立新横浜小学校</li>
-					<li>校長：横浜 太郎</li>
-					<li>所在地：〒221-0000 神奈川県横浜市港北区新横浜1-1-1</li>
-					<iframe
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.8632913490014!2d139.6149803763621!3d35.507658472643776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f10.1!3m3!1m2!1s0x60185ed02e389b43%3A0xdab81661ffb6a63b!2z5paw5qiq5rWc6aeF!5e0!3m2!1sja!2sjp!4v1744006515303!5m2!1sja!2sjp"
-						width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"></iframe>
-				</ul>
+		</div>
+
+		<div class="container">
+			<div class="row news">
+				<div class="col-3 news-header">
+					<h1>News</h1>
+					<p>最新のおしらせ</p>
+					<p><a th:href="@{/notices}">
+							<i class="bi bi-arrow-right-circle"></i>お知らせ一覧</h4></a>
+					</p>
+				</div>
+				<div class="col-9 news-detail">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<div class="row latest-list">
+									<div class="col-md-2 status"></div>
+									<div class="col-md-3 th-last-update">最終更新日</div>
+									<div class="col-md-3 th-notice-date">お知らせ日</div>
+									<div class="col-md-4 th-notice-title">タイトル</div>
+								</div>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="notice : ${notices}">
+								<td>
+									<a th:href="@{/notices/detailNotice/{id}(id=${notice.noticeId})}"
+										class="table-link">
+										<div class="row latest-list">
+											<div class="col-md-2 status">[[${notice.updateStatus}]]</div>
+											<div class="col-md-3 last-update">[[${#temporals.format(notice.lastUpdate,
+												'yyyy.MM.dd')}]]
+											</div>
+											<div class="col-md-3 notice-date">[[${#temporals.format(notice.noticeDate,
+												'yyyy.MM.dd')}]]
+											</div>
+											<div class="col-md-4 notice-title">[[${notice.noticeTitle}]]</div>
+										</div>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row event">
+				<div class="col-3 news-header">
+					<h1>Event</h1>
+					<p>今月の行事</p>
+					<h5><a th:href="@{/events}">
+							<i class="bi bi-arrow-right-circle"></i>行事予定一覧</a>
+					</h5>
+				</div>
+				<div class="col-9 events-detail">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<div class="row latest-list">
+									<div class="col-md-3 th-last-update">実施日</div>
+									<div class="col-md-3 th-notice-date">タイトル</div>
+									<div class="col-md-4 th-notice-title">対象者</div>
+								</div>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="event : ${events}">
+								<td>
+									<a th:href="@{/events/detailEvent/{id}(id=${event.eventId})}" class="table-link">
+										<div class="row latest-list">
+											<div class="col-md-3 last-update">
+												[[${#temporals.format(event.eventStartDatetime,
+												'yyyy.MM.dd')}]]
+											</div>
+											<div class="col-md-4 notice-title">[[${event.eventTitle}]]</div>
+											<div class="col-md-4 notice-title">[[${event.eventTarget}]]</div>
+										</div>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 
 
+		<div class="container">
+			<div class="row school">
+				<div class="col-3 school-header">
+					<h1>About School</h1>
+					<p>学校詳細</p>
+				</div>
+				<div class="col-9 school-detail">
+					<ul>
+						<li>学校名：横浜市立新横浜小学校</li>
+						<li>校長：横浜 太郎</li>
+						<li>所在地：〒221-0000 神奈川県横浜市港北区新横浜1-1-1</li>
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.8632913490014!2d139.6149803763621!3d35.507658472643776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f10.1!3m3!1m2!1s0x60185ed02e389b43%3A0xdab81661ffb6a63b!2z5paw5qiq5rWc6aeF!5e0!3m2!1sja!2sjp!4v1744006515303!5m2!1sja!2sjp"
+							width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</main>
 
-	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const images = document.querySelectorAll(".home-img img");
+			let current = 0;
+			const displayTime = 5000; // 4秒
+
+			function showNextImage() {
+				images[current].classList.remove("active");
+
+				current = (current + 1) % images.length;
+
+				images[current].classList.add("active");
+			}
+
+			// 最初の画像を表示
+			images[0].classList.add("active");
+
+			// 一定間隔で切り替え
+			setInterval(showNextImage, displayTime);
+		});
+	</script>
+
 </body>
 
 </html>

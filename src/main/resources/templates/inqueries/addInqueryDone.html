@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>新規行事追加完了</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="refresh" content="3;URL=/events">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+	<title>問い合わせ入力</title>
 </head>
+
 <body>
-	<h1>新規行事追加完了</h1>
-	<p>新規行事追加が完了しました。</p>
+	<div class="card text-dark bg-info mb-3" style="max-width: 100%;">
+		<div class="card-header">問い合わせ登録</div>
+		<div class="card-body">
+			<h5 class="card-title">問い合わせ完了</h5>
+			<p class="card-text">問い合わせの登録が完了しました。</p>
+		</div>
+	</div>
+
+
+
+	<p><span id="countdown">3</span>秒後に行事予定に戻ります</p>
+	<p>移動しない場合は<a th:href="@{/notices}">こちら</a>をクリック</p>
+
+	<script>
+		let seconds = 3;
+		const countdownElement = document.getElementById("countdown");
+
+		const countdown = setInterval(() => {
+			seconds--;
+			countdownElement.textContent = seconds;
+			if (seconds <= 0) {
+				clearInterval(countdown);
+				window.location.href = "/inqueries";
+			}
+		}, 1000);
+	</script>
+
 
 </body>
+
 </html>
