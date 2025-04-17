@@ -2,36 +2,58 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>教師ログイン</title>
+	<!-- Web Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+	<title>新規お知らせ作成</title>
 </head>
 
 <body>
-	<h2>教師ログイン</h2>
 
-	<!-- ログインフォーム -->
-	<form th:action="@{/login/teacherLogin}" method="post" th:object="${login}">
-		<div>
-			<label for="email">Email</label>
-			<input type="email" id="email" th:field="*{email}" placeholder="メールアドレスを入力" required>
-			<!-- Errorsを使ってエラーを表示 -->
-			<div style="color: red;" th:if="${#fields.hasErrors('email')}">
-				<span th:errors="*{email}">Email Error</span>
+	<div th:replace="fragments/header :: header"></div>
+
+	<main>
+		<h2>教師ログイン</h2>
+
+		<!-- ログインフォーム -->
+		<form th:action="@{/login/teacherLogin}" method="post" th:object="${login}">
+			<div>
+				<label for="email">Email</label>
+				<input type="email" id="email" th:field="*{email}" placeholder="メールアドレスを入力" required>
+				<!-- Errorsを使ってエラーを表示 -->
+				<div style="color: red;" th:if="${#fields.hasErrors('email')}">
+					<span th:errors="*{email}">Email Error</span>
+				</div>
 			</div>
-		</div>
 
-		<div>
-			<label for="password">Password</label>
-			<input type="password" id="password" th:field="*{password}" placeholder="パスワードを入力" required>
-			<!-- Errorsを使ってエラーを表示 -->
-			<div style="color: red;" th:if="${#fields.hasErrors('password')}">
-				<span th:errors="*{password}">Password Error</span>
+			<div>
+				<label for="password">Password</label>
+				<input type="password" id="password" th:field="*{password}" placeholder="パスワードを入力" required>
+				<!-- Errorsを使ってエラーを表示 -->
+				<div style="color: red;" th:if="${#fields.hasErrors('password')}">
+					<span th:errors="*{password}">Password Error</span>
+				</div>
 			</div>
-		</div>
 
-		<input type="submit" value="ログイン">
-	</form>
+			<input type="submit" value="ログイン">
+		</form>
+	</main>
 
 </body>
 

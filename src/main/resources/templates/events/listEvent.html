@@ -27,9 +27,11 @@
 	<main class="main-contents">
 		<div class="page-title">
 			<h1 class="detail-title">行事予定</h1>
-			<a class="btn btn-primary add-btn" th:href="@{/events/addEvent}">
-				<i class="bi bi-plus-circle"></i>新規行事登録
-			</a>
+			<div th:if="${session.accountType == 'teacher'}">
+				<a class="btn btn-primary add-btn" th:href="@{/events/addEvent}">
+					<i class="bi bi-plus-circle"></i>新規行事登録
+				</a>
+			</div>
 		</div>
 
 		<div class="conatainer-fluid">
@@ -99,10 +101,12 @@
 						<div class="modal-footer">
 							<button id="openInNewWindowBtn" type="button" class="btn btn-primary">
 								<i class="bi bi-box-arrow-up-right"></i>別タブで開く</button>
-							<button id="openInEditWindowBtn" type="button" class="btn btn-warning">
-								<i class="bi bi-pencil-square"></i>編集</button>
-							<button id="openInDeleteWindowBtn" type="button" class="btn btn-danger">
-								<i class="bi bi-trash"></i>削除</button>
+							<div th:if="${session != null and session.accountType == 'teacher'}">
+								<button id="openInEditWindowBtn" type="button" class="btn btn-warning">
+									<i class="bi bi-pencil-square"></i>編集</button>
+								<button id="openInDeleteWindowBtn" type="button" class="btn btn-danger">
+									<i class="bi bi-trash"></i>削除</button>
+							</div>
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 								<i class="bi bi-x"></i>閉じる</button>
 						</div>
@@ -223,17 +227,26 @@
 					var eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
 					eventDetailsModal.show();
 
-					document.getElementById('openInNewWindowBtn').addEventListener('click', function () {
-						window.open(`/events/detailEvent/${eventId}`, '_blank');
-					});
+					const openInNewWindowBtn = document.getElementById('openInNewWindowBtn');
+					if (openInNewWindowBtn) {
+						openInNewWindowBtn.addEventListener('click', function () {
+							window.open(`/events/detailEvent/${eventId}`, '_blank');
+						});
+					}
 
-					document.getElementById('openInEditWindowBtn').addEventListener('click', function () {
-						window.location.href = `/events/editEvent/${eventId}`;
-					});
+					const editBtn = document.getElementById('openInEditWindowBtn');
+					if (editBtn) {
+						editBtn.addEventListener('click', function () {
+							window.location.href = `/events/editEvent/${eventId}`;
+						});
+					}
 
-					document.getElementById('openInDeleteWindowBtn').addEventListener('click', function () {
-						window.location.href = `/events/deleteEventConf/${eventId}`;
-					});
+					const deleteBtn = document.getElementById('openInDeleteWindowBtn');
+					if (deleteBtn) {
+						deleteBtn.addEventListener('click', function () {
+							window.location.href = `/events/deleteEventConf/${eventId}`;
+						});
+					}
 				})
 				.catch(error => {
 					console.error('エラー:', error);
@@ -256,17 +269,26 @@
 					var eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
 					eventDetailsModal.show();
 
-					document.getElementById('openInNewWindowBtn').addEventListener('click', function () {
-						window.open(`/events/detailEvent/${eventId}`, '_blank');
-					});
+					const openInNewWindowBtn = document.getElementById('openInNewWindowBtn');
+					if (openInNewWindowBtn) {
+						openInNewWindowBtn.addEventListener('click', function () {
+							window.open(`/events/detailEvent/${eventId}`, '_blank');
+						});
+					}
 
-					document.getElementById('openInEditWindowBtn').addEventListener('click', function () {
-						window.location.href = `/events/editEvent/${eventId}`;
-					});
+					const editBtn = document.getElementById('openInEditWindowBtn');
+					if (editBtn) {
+						editBtn.addEventListener('click', function () {
+							window.location.href = `/events/editEvent/${eventId}`;
+						});
+					}
 
-					document.getElementById('openInDeleteWindowBtn').addEventListener('click', function () {
-						window.location.href = `/events/deleteEventConf/${eventId}`;
-					});
+					const deleteBtn = document.getElementById('openInDeleteWindowBtn');
+					if (deleteBtn) {
+						deleteBtn.addEventListener('click', function () {
+							window.location.href = `/events/deleteEventConf/${eventId}`;
+						});
+					}
 				})
 				.catch(error => {
 					console.error('エラー:', error);

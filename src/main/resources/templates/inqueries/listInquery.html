@@ -62,7 +62,7 @@
 											<p><strong>A.</strong></p>
 											<div th:utext="${inq.answer}"></div>
 											<a th:href="@{/inqueries/addAnswer/{id}(id=${inq.inqueryId})}">
-												<div class="crud-ope-button">
+												<div class="crud-ope-button" th:if="${session.accountType == 'teacher'}">
 													<button type="button" class="btn btn-primary">回答入力・編集</button>
 												</div>
 											</a>

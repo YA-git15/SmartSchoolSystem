@@ -2,15 +2,38 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>ログイン</title>
+	<meta charset='utf-8' />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Web Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Dancing+Script:wght@400..700&display=swap"
+		rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+	<title>新規お知らせ作成</title>
 </head>
 
 <body>
-	<h1>スマートスクールシステム</h1>
-	<p>アカウント種別を選択してください</p>
-	<p><a th:href="@{/login/teacherLogin}">教師アカウント</a></p>
-	<p><a th:href="@{/login/guardianLogin}">保護者アカウント</a></p>
+
+	<div th:replace="fragments/header :: header"></div>
+
+	<main>
+		<h1>スマートスクールシステム</h1>
+		<p>アカウント種別を選択してください</p>
+		<p><a th:href="@{/login/teacherLogin}">教師アカウント</a></p>
+		<p><a th:href="@{/login/guardianLogin}">保護者アカウント</a></p>
+	</main>
 </body>
 
 </html>

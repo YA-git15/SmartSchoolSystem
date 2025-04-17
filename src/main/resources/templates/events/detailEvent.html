@@ -27,13 +27,13 @@
 	<main>
 		<div class="crud-ope-name">
 			<div class="card text-white bg-success mb-3" style="max-width: 100%;">
-				
+
 				<div class="card-body">
-					<h2 class="card-title">[[${event.eventTitle}]] 詳細</h2>					
+					<h2 class="card-title">[[${event.eventTitle}]] 詳細</h2>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="detail-contets">
 			<!-- フルページ表示 -->
 			<div th:if="${param.fragment == null}">
@@ -80,9 +80,11 @@
 					<a th:href="@{/inqueries/addInquery(eventId=${event.eventId}, eventTitle=${event.eventTitle})}">
 						<button type="button" class="btn btn-primary">問い合わせ</button>
 					</a>
-					<a th:href="@{/events/deleteEventConf/{id} (id=${event.eventId})}">
-						<button type="button" class="btn btn-danger">削除</button>						
-					</a>
+					<div th:if="${session.accountType == 'teacher'}">
+						<a th:href="@{/events/deleteEventConf/{id} (id=${event.eventId})}">
+							<button type="button" class="btn btn-danger">削除</button>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -48,9 +48,11 @@
 				<a th:href="@{/inqueries/addInquery(noticeId=${notice.noticeId}, noticeTitle=${notice.noticeTitle})}">
 					<button type="button" class="btn btn-primary">問い合わせ</button>
 				</a>
+				<div th:if="${session.accountType == 'teacher'}">
 				<a th:href="@{/notices/deleteNoticeConf/{id} (id=${notice.noticeId})}">
 					<button type="button" class="btn btn-danger">削除</button>
 				</a>
+				</div>
 			</div>
 			<p>※行事に対するお問い合わせは<a th:href="@{/events/detailEvent/{id} (id=*{eeventId})}">行事詳細ページ</a>よりお願いいたします。</p>
 
